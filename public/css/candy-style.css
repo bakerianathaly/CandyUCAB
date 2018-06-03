@@ -1,0 +1,218 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+
+}
+
+footer {
+    bottom: 0;
+     
+}
+
+#logo {
+    width: 205px;
+    height: 45px;
+}
+.colorletras{
+    color: white!important;
+    /*El important sirve para que aunque tenga otros estilos herados 
+    solamente este pendiente del que le digo*/
+}
+#letras{
+    font-family: 'Shadows Into Light Two', cursive;
+    font-size: 20px;
+    text-align: center;
+    color: white!important;
+    margin: auto;
+}
+.letras{
+    font-family: 'Fjalla One', sans-serif;
+    font-size: 30px;
+    text-align: center;
+    color: white!important;
+}
+
+.trans {
+    width: 1300px;
+    display: flex;
+    justify-content: center;
+}
+
+#carousel-ejemplo{
+    padding-top: 78px;
+}
+#header{
+    font-family: 'Fjalla One', sans-serif;
+    font-size: 20px;
+}
+.carousel-inner img{
+	height: 350px;
+}
+
+.card{
+    padding: auto;
+}
+/* Estilos de la seccion de "Algunos de nuestros productos" */
+#algunos-titulo{ 
+    text-align: center;
+    color: black;
+    font-family: 'Shadows Into Light Two', cursive;
+    font-size: 30px;
+}
+#algunos-letras{
+    text-align: justify;
+    font-family: 'Fjalla One', sans-serif;
+    font-size: large;
+}
+.card.border-dark img{
+    max-height: 150px;
+}
+
+/* Estilos de la seccion de "Nuestros productos mas vendidos" */
+#vendidos-titulo{
+    text-align: center;
+    color: black;
+    font-family: 'Shadows Into Light Two', cursive;
+    font-size: 28.5px;
+}
+
+/* Estilos de la seccion de "Registro" */
+#registro-letras{
+    text-align: center;
+    color: black;
+    font-family: 'Shadows Into Light Two', cursive;
+    font-size: 30px;    
+    margin-top: 6%;
+}
+#registro-froml{
+    text-align: center;
+    color: black;
+    font-family: 'Shadows Into Light Two', cursive;
+    font-size: 20px;    
+    margin-top: 1%;
+    margin-left: 1%;
+}
+.registro-rosa:hover{
+    /* El hover lo que hace es darme una animacion
+        cuando el mouse pasa por encima de la seccion */
+    background-color:#F79BEF;
+    font-weight: 700;
+    color:black ;
+}
+#margenSubmenu{
+    padding-top: 30px;
+}
+.botonRosado{
+    background-color:#F79BEF;
+    border-right-style: dotted;
+    border-width: 1px;
+    border-color: #F79BEF;
+    margin-bottom: 3%;
+    margin-left: 45%;
+    font-family: 'Fjalla One', sans-serif;
+    font-size: 20px; 
+    color: white;
+}
+
+/* Estilos del LOGIN */
+#login-letras{
+    text-align: center;
+    color: black;
+    font-family: 'Shadows Into Light Two', cursive;
+    font-size: 35px;    
+    margin-top: 10%;
+}
+.input-group-addon div{
+    width: 2.6rem;
+}
+#login-candy{
+    max-width: 45px;
+    max-height: 45px;
+}
+#login-centro{
+    margin-top: 3%;
+}
+
+/* Estilos de la seccion de "Productos */
+#pro-letras{
+    text-align: center;
+    color: black;
+    font-family: 'Shadows Into Light Two', cursive;
+    font-size: 43px;    
+    margin-top: 6%;
+}
+#producto-show{
+    margin-bottom: 1%!important;
+}
+#botonRosado2{
+    background-color:#F79BEF;
+    border-right-style: dotted;
+    border-width: 1px;
+    border-color: #F79BEF;
+    margin-left: 25%;
+    font-family: 'Fjalla One', sans-serif;
+    font-size: 15px;
+}
+#pro-img{
+    max-height: 150px;
+}
+
+/* Estilos de la seccion de "Tiendas" */
+#tienda-letras{
+    font-family: 'Fjalla One', sans-serif;
+    font-size: 15px;
+    text-align: center;
+    color: black;
+}
+#foot{
+    margin-top: 1%!important;
+}
+
+/* Estilos de la seccion de "Promociones */
+#carousel-ejemplo2{
+    padding-top: 5px;
+    padding-bottom: 3%;
+}
+#descuentos{
+    color:red;
+    font-family: 'Shadows Into Light Two', cursive;
+    font-size: 30px;
+}
+
+/* Estilos de "quienes somos */
+#img-qs {
+    max-width:300px!important;
+    margin-left: 10px !important;
+}
+#img-qs2 {
+    max-width:300px!important;
+    margin-right: 10px !important;
+}
+#qs-letras{
+    text-align: justify;
+    color: black;
+    font-family: 'Fjalla One', sans-serif;
+    padding: 1.5% 0%;
+    font-size: 15px;
+}
+.card{
+    border: #fff!important;
+}
+footer{
+    text-align:center;
+    color: white;
+    padding: 1.5% 0%;
+    font-family: 'Fjalla One', sans-serif;
+}
+footer a {
+    padding: 15px;
+    color: white;
+}
+.isma{
+    margin-top: 1.5%;
+}
+
