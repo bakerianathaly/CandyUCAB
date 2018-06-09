@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Session;
 use Redirect;
 use Validator;
@@ -19,7 +20,6 @@ class ProductosController extends Controller
     {
         return view('candy-producto');
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -27,9 +27,11 @@ class ProductosController extends Controller
      */
     public function create()
     {
-        return view('agregar-producto');
+        $tipos=DB::select(DB::raw("SELECT tip_id, tip_nombre from tipo;"));
+        $sabores=DB::select(DB::raw("SELECT sab_id, sab_nombre from sabor;"));
+        /* Consultas de SQL puro para hacer un dropdown y poder insertar de una con el ID */
+        return view('agregar-producto',compact('sabores','tipos'));
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -46,7 +48,6 @@ class ProductosController extends Controller
         'sabor' =>'required|string|between:1,50',
         'tipo' =>'required|string|between:1,50'
         ];
-
          $customMessages = [
           'nombre.required' => 'Debe introducir el nombre del producto',
               'textura.required' => 'Debe introducir la textura del producto',
@@ -61,7 +62,7 @@ class ProductosController extends Controller
         $puntuacion = $request->input('puntuacion');
         $sabor = $request->input('sabor');
         $tipo = $request->input('tipo');
-        DB::insert('Insert into public.Producto (Pro_nombre,Pro_relleno,Pro_textura,Pro_puntuacion,fksabor,fktipo) values (?,?,?,?,(Select Sab_id from public.Sabor where Sab_nombre=?),(Select Tip_id from public.Tipo where Tip_nombre=?))', [$nombre,$relleno,$textura,$puntuacion,$sabor,$tipo]);
+        DB::insert('Insert into public.Producto (Pro_nombre,Pro_relleno,Pro_textura,Pro_puntuacion,fksabor,fktipo) values (?,?,?,?,?,?)', [$nombre,$relleno,$textura,$puntuacion,$sabor,$tipo]);
         Session::flash('message', 'Producto creado');
         return Redirect::to('Producto');
     }
@@ -75,7 +76,6 @@ class ProductosController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -86,7 +86,6 @@ class ProductosController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -98,7 +97,6 @@ class ProductosController extends Controller
     {
         DB::update('update users set votes = 100 where name = ?', ['John']);
     }
-
     /**
      * Remove the specified resource from storage.
      *
