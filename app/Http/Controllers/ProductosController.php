@@ -69,12 +69,13 @@ class ProductosController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($nombre)
+    { 
+       $Producto = DB::select('select * from public.Producto where Pro_nombre = ?', [$nombre]);
+       return $Producto;
     }
     /**
      * Show the form for editing the specified resource.
@@ -84,7 +85,9 @@ class ProductosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $producto = DB::select('select * from public.Producto where Pro_id = ?', [$id]);
+        echo $producto;
+        return view('editar-producto');
     }
     /**
      * Update the specified resource in storage.
@@ -108,4 +111,4 @@ class ProductosController extends Controller
         DB::delete('delete from public.Producto where Pro_id = ?', [1]);
         return 'exitoso';
     }
-}
+}  
