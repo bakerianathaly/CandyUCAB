@@ -24,7 +24,7 @@
                     <a class="nav-link colorletras" href="/">Inicio <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link colorletras" href="/producto">Producto</a>
+                    <a class="nav-link colorletras" href="/Producto">Producto</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link colorletras" href="/tiendas">Tiendas</a>
