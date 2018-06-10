@@ -18,7 +18,8 @@ class ProductosController extends Controller
      */
     public function index()
     {
-        return view('candy-producto');
+        $productos = DB::select('select * from public.Producto');
+        return view('listar-productos', compact('productos'));
     }
     /**
      * Show the form for creating a new resource.
@@ -124,7 +125,7 @@ class ProductosController extends Controller
         $sabor = $request->input('sabor');
         $tipo = $request->input('tipo');
         DB::update('update public.Producto set pro_nombre = ?, pro_relleno = ?, pro_textura = ?, pro_puntuacion = ?, fksabor = ?, fktipo = ? where pro_id = ?', [$nombre,$relleno,$textura,$puntuacion,$sabor,$tipo,$id]);
-        return Redirect::to('Producto');
+        return redirect()->action('ProductosController@index')->with('success','El producto fue editado');
     }
     /**
      * Remove the specified resource from storage.
@@ -132,9 +133,10 @@ class ProductosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy($id)
     {
-        DB::delete('delete from public.Producto where Pro_id = ?', [1]);
-        return 'exitoso';
+        DB::delete('delete from public.Producto where Pro_id = :id ', ['id'=>$id]);
+        return redirect()->action('ProductosController@index')->with('success','El producto fue eliminado');
     }
+
 }  
