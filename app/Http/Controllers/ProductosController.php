@@ -85,9 +85,12 @@ class ProductosController extends Controller
      */
     public function edit($id)
     {
-        $producto = DB::select('select * from public.Producto where Pro_id = ?', [$id]);
-        echo $producto;
-        return view('editar-producto');
+        $tipos=DB::select(DB::raw("SELECT tip_id, tip_nombre from tipo;"));
+        $sabores=DB::select(DB::raw("SELECT sab_id, sab_nombre from sabor;"));
+        $productos = DB::select('select * from public.Producto where Pro_id = :id', ['id'=>$id]);
+        $producto=$productos[0];
+        return view('editar-producto', compact('producto','sabores','tipos','id'));
+
     }
     /**
      * Update the specified resource in storage.
@@ -96,9 +99,32 @@ class ProductosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($props)
-    {
-        DB::update('update users set votes = 100 where name = ?', ['John']);
+    public function update(Request $request,$id)
+    {   
+        $rules = [
+        'nombre' => 'required|string|between:1,50',
+        'relleno' => 'nullable|string|between:1,50',
+        'textura' => 'required|string|between:1,50',
+        'puntuacion'=>'required|numeric|between:1,50',
+        'sabor' =>'required|string|between:1,50',
+        'tipo' =>'required|string|between:1,50'
+        ];
+         $customMessages = [
+          'nombre.required' => 'Debe introducir el nombre del producto',
+              'textura.required' => 'Debe introducir la textura del producto',
+              'puntuacion.required' => 'Debe introducir la puntuacion del producto',
+              'sabor.required' => 'Debe introducir el sabor del producto',
+              'tipo.required' => 'Debe introducir el tipo del producto',
+        ];
+        $this->validate($request, $rules, $customMessages);
+        $nombre = $request->input('nombre');
+        $relleno = $request->input('relleno');
+        $textura = $request->input('textura');
+        $puntuacion = $request->input('puntuacion');
+        $sabor = $request->input('sabor');
+        $tipo = $request->input('tipo');
+        DB::update('update public.Producto set pro_nombre = ?, pro_relleno = ?, pro_textura = ?, pro_puntuacion = ?, fksabor = ?, fktipo = ? where pro_id = ?', [$nombre,$relleno,$textura,$puntuacion,$sabor,$tipo,$id]);
+        return Redirect::to('Producto');
     }
     /**
      * Remove the specified resource from storage.
