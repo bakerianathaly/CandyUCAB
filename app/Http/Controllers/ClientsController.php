@@ -52,6 +52,7 @@ class ClientsController extends Controller
             'pagina_web' => 'nullable|string|between:1,50',
             'total_capital'=>'nullable|numeric',
             'deno_comercial' => 'nullable|string|between:1,50', 
+            'razon_social' => 'nullable|string|between:1,50',
             'ci' =>'nullable|integer',
             'nombre' =>'nullable|string|between:1,50',    
             'apellido' =>'nullable|string|between:1,50',
@@ -67,6 +68,7 @@ class ClientsController extends Controller
             $rif = $request->input('rif');
             $correo = $request->input('correo');
             $pagina_web = $request->input('pagina_web');
+            $razon_social = $request->input('razon_social');
             $total_capital = $request->input('total_capital');
             $deno_comercial = $request->input('deno_comercial');
             $ci = $request->input('ci');
@@ -88,19 +90,21 @@ class ClientsController extends Controller
             
             if ($pagina_web == null){
                 $tipo= 'N';
+                $dir_tipo='P';
                 DB::insert('Insert into Cliente (Cli_rif, Cli_correo, Cli_ci, Cli_nombre, Cli_apellido,  Cli_tipo, fktienda)
                 values(?,?,?,?,?,?,?)', [$rif, $correo,$ci,$nombre,$apellido,$tipo,$tienda]);
-                return ($usuario);
-                //$cliente =DB::select(DB::raw("SELECT cli_id from Cliente  where cli_correo = $correo"));
+                /* $correo2= (string)$correo; 
+                $cliente =DB::select(DB::raw("SELECT cli_id from Cliente  where cli_correo = $correo2")); */
+                
                 /* Insertes para la tabla de Cli_lug*/ 
-                /*  DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$estado,$cliente,$dir_tipo]);
-                    DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$municipio,$cliente,$dir_tipo]);
-                    DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$parroquia,$cliente,$dir_tipo]); */ 
+                /* DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$estado,$cliente,$dir_tipo]);
+                DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$municipio,$cliente,$dir_tipo]);
+                DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$parroquia,$cliente,$dir_tipo]); */ 
             }
             else {
                 $tipo='J';
-                DB::insert('Insert into Cliente (CLi_rif, Cli_correo, Cli_pagina_web, Cli_deno_comercial, Cli_total_capital, fktienda)
-                values (?,?,?,?,?,?)', [$rif, $correo, $pagina_web,$deno_comercial, $total_capital, $tienda]);
+                DB::insert('Insert into Cliente (CLi_rif, Cli_correo, Cli_pagina_web,Cli_razon_social ,Cli_deno_comercial, Cli_total_capital, Cli_tipo ,fktienda)
+                values (?,?,?,?,?,?,?,?)', [$rif, $correo, $pagina_web, $razon_social,$deno_comercial, $total_capital, $tipo, $tienda]);
                 $dir1_tipo='F'; $dir2_tipo='FP';
 
                 //$cliente =DB::select(DB::raw("SELECT cli_id from Cliente  where cli_correo = $correo"));

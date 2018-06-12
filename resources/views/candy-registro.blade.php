@@ -27,79 +27,174 @@
     </ul>
   </div>
 
-  <div class="row container-fluid mt-5">
-    <div class="col-lg-4 ml-auto">
-      {!! Form::open(['url' => 'registro']) !!}
-      <div class="form-group">
-        <label for="formGroup">Nombre</label>
-        <input class="form-control" type="text" name="nombre" placeholder="Ingresar nombre">
-      </div>
-      <div class="form-group">
-        <label for="formGroup">Apellido</label>
-        <input class="form-control" type="text" name="apellido" placeholder="Ingresar el apellido">
-      </div>
-      <div class="form-group">
-        <label for="formGroup">Correo</label>
-        <input class="form-control" type="text" name="correo" placeholder="Ingrese el correo electronico">
-      </div>
-      <div class="form-group">
-        <label for="validationDefaultUsername">Username</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroupPrepend2">@</span>
+  <div class="tab-content">
+    <!--Registro para clientes naturales -->
+    <div class="tab-pane active" id="Naturales" role="tabpanel" aria-labelledby="registro-natural">
+      <div class="row container-fluid mt-5">
+        <div class="col-lg-4 ml-auto" id="Naturales">
+          {!! Form::open(['url' => 'registro']) !!}
+          <div class="form-group">
+            <label for="formGroup">Nombre</label>
+            <input class="form-control" type="text" name="nombre" placeholder="Ingresar nombre">
           </div>
-          <input type="text" name="username" class="form-control" id="validationDefaultUsername" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
+          <div class="form-group">
+            <label for="formGroup">Apellido</label>
+            <input class="form-control" type="text" name="apellido" placeholder="Ingresar el apellido">
+          </div>
+          <div class="form-group">
+            <label for="formGroup">Correo</label>
+            <input class="form-control" type="text" name="correo" placeholder="Ingrese el correo electronico">
+          </div>
+          <div class="form-group">
+            <label for="validationDefaultUsername">Username</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend2">@</span>
+              </div>
+              <input type="text" name="username" class="form-control" id="validationDefaultUsername" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="formGroup">Clave</label>
+            <input class="form-control" type="password" name="clave" placeholder="Ingresar clave para el usuario*">
+          </div> 
+        </div>
+        <div class="col-lg-4 mr-auto">
+          <div class="form-group">
+            <label for="formGroup">RIF</label>
+            <input class="form-control" type="text" name="rif" placeholder="Ingrese el RIF">
+          </div>
+          <div class="form-group">
+            <label for="formGroup">Cedula</label>
+            <input class="form-control" type="text" name="ci" placeholder="Ingrese la cedula">
+          </div>
+          <div class="form-group">
+            <label for="formGroup">Tienda</label>
+            <select name= "tienda" id="tienda" class="form-control" required>
+              <option value="">Seleccione la tienda de preferencia</option>
+              @foreach($tiendas as $tienda)
+                <option value="{{$tienda->tie_id}}">{{$tienda->tie_tipo}} {{$tienda->lug_nombre}}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="formGroup">Direccion</label>
+            <select name= "estado" id="estado" class="form-control mb-2" required>
+              <option value="">Seleccione su estado </option>
+              @foreach($estados as $estado)
+                <option value="{{$estado->lug_id}}">{{$estado->lug_nombre}}</option>
+              @endforeach
+            </select>
+            <select name= "municipio" id="municipio" class="form-control mb-2" required>
+              <option value="">Seleccione el municipio </option>
+              @foreach($municipios as $municipio)
+                <option value="{{$municipio->lug_id}}">{{$municipio->lug_nombre}}</option>
+              @endforeach
+            </select>
+            <select name= "parroquia" id="parroquia" class="form-control" required>
+              <option value="">Seleccione la parroquia </option>
+              @foreach($parroquias as $parroquia)
+                <option value="{{$parroquia->lug_id}}">{{$parroquia->lug_nombre}}</option>
+              @endforeach
+            </select>
+          </div>
         </div>
       </div>
-      <div class="form-group">
-        <label for="formGroup">Clave</label>
-        <input class="form-control" type="password" name="clave" placeholder="Ingresar clave para el usuario*">
-      </div> 
+      <div class="trans text-center">
+        {!! Form::submit('Agregar', ['class' => 'btn btn-default', 'style'=> 'background-color:#F79BEF']) !!}
+      </div>
+      {!! Form::close() !!}
     </div>
-    <div class="col-lg-4 mr-auto">
-      <div class="form-group">
-        <label for="formGroup">RIF</label>
-        <input class="form-control" type="text" name="rif" placeholder="Ingrese el RIF">
+    <!-- Registro para clientes juridicos -->
+    <div class="tab-pane" id="Juridicos" role="tabpanel" aria-labelledby="registro-juridico">
+      <div class="row container-fluid mt-5">
+        <div class="col-lg-4 ml-auto" id="Juridicos">
+          {!! Form::open(['url' => 'registro']) !!}
+          <div class="form-group">
+            <label for="formGroup">RIF</label>
+            <input class="form-control" type="text" name="rif" placeholder="Ingrese el RIF">
+          </div>
+          <div class="form-group">
+            <label for="formGroup">Correo</label>
+            <input class="form-control" type="text" name="correo" placeholder="candyUCAB@candy.com">
+          </div>
+          <div class="form-group">
+            <label for="validationDefaultUsername">Username</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend2">@</span>
+              </div>
+              <input type="text" name="username" class="form-control" id="validationDefaultUsername" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="formGroup">Clave</label>
+            <input class="form-control" type="password" name="clave" placeholder="Ingresar clave para el usuario*">
+          </div> 
+          <div class="form-group">
+            <label for="formGroup">Total capital de la empresa</label>
+            <input class="form-control" type="text" name="total_capital" placeholder="Ingresar el capital">
+          </div>
+          <div class="form-group">
+            <label for="formGroup">Persona de contacto</label>
+            <input class="form-control" type="text" name="contacto" placeholder="Ingrese el nombre de la persona de contacto">
+          </div>
+        </div>
+        <div class="col-lg-4 mr-auto">
+          <div class="form-group">
+            <label for="formGroup">Pagina web</label>
+            <input class="form-control" type="text" name="pagina_web" placeholder="www.candyUCAB.com">
+          </div>
+          <div class="form-group">
+            <label for="formGroup">Razon social</label>
+            <input class="form-control" type="text" name="razon_social" placeholder="C.A">
+          </div>
+          <div class="form-group">
+            <label for="formGroup">Denominacion comercial</label>
+            <input class="form-control" type="text" name="deno_comercial" placeholder="Venta de dulces al mayor">
+          </div>
+          <div class="form-group">
+            <label for="formGroup">Tienda</label>
+            <select name= "tienda" id="tienda" class="form-control" required>
+              <option value="">Seleccione la tienda de preferencia</option>
+              @foreach($tiendas as $tienda)
+                <option value="{{$tienda->tie_id}}">{{$tienda->tie_tipo}} {{$tienda->lug_nombre}}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="formGroup">Direccion</label>
+            <select name= "estado" id="estado" class="form-control mb-2" required>
+              <option value="">Seleccione su estado </option>
+              @foreach($estados as $estado)
+                <option value="{{$estado->lug_id}}">{{$estado->lug_nombre}}</option>
+              @endforeach
+            </select>
+            <select name= "municipio" id="municipio" class="form-control mb-2" required>
+              <option value="">Seleccione el municipio </option>
+              @foreach($municipios as $municipio)
+                <option value="{{$municipio->lug_id}}">{{$municipio->lug_nombre}}</option>
+              @endforeach
+            </select>
+            <select name= "parroquia" id="parroquia" class="form-control" required>
+              <option value="">Seleccione la parroquia </option>
+              @foreach($parroquias as $parroquia)
+                <option value="{{$parroquia->lug_id}}">{{$parroquia->lug_nombre}}</option>
+              @endforeach
+            </select>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="formGroup">Cedula</label>
-        <input class="form-control" type="text" name="ci" placeholder="Ingrese la cedula">
+      <div class="trans text-center">
+        {!! Form::submit('Agregar', ['class' => 'btn btn-default', 'style'=> 'background-color:#F79BEF']) !!}
       </div>
-      <div class="form-group">
-        <label for="formGroup">Tienda</label>
-        <select name= "tienda" id="tienda" class="form-control" required>
-          <option value="">Seleccione la tienda de preferencia</option>
-          @foreach($tiendas as $tienda)
-            <option value="{{$tienda->tie_id}}">{{$tienda->tie_tipo}} {{$tienda->lug_nombre}}</option>
-          @endforeach
-        </select>
-      </div>
-      <div class="form-group">
-      <label for="formGroup">Direccion</label>
-        <select name= "estado" id="estado" class="form-control mb-2" required>
-          <option value="">Seleccione su estado </option>
-          @foreach($estados as $estado)
-            <option value="{{$estado->lug_id}}">{{$estado->lug_nombre}}</option>
-          @endforeach
-        </select>
-        <select name= "municipio" id="municipio" class="form-control mb-2" required>
-          <option value="">Seleccione el municipio </option>
-          @foreach($municipios as $municipio)
-            <option value="{{$municipio->lug_id}}">{{$municipio->lug_nombre}}</option>
-          @endforeach
-        </select>
-        <select name= "parroquia" id="parroquia" class="form-control" required>
-          <option value="">Seleccione la parroquia </option>
-          @foreach($parroquias as $parroquia)
-            <option value="{{$parroquia->lug_id}}">{{$parroquia->lug_nombre}}</option>
-          @endforeach
-        </select>
-      </div>
+      {!! Form::close() !!}
     </div>
   </div>
-  <div class="trans text-center">
-    {!! Form::submit('Agregar', ['class' => 'btn btn-default', 'style'=> 'background-color:#F79BEF']) !!}
-  </div>
-{!! Form::close() !!}
+  <script>
+    $(function () {
+      $('#myTab li:last-child a').tab('show')
+    });
+  </script>
 
 @endsection
