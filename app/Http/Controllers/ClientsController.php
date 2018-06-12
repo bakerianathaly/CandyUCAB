@@ -51,7 +51,7 @@ class ClientsController extends Controller
             'correo' => 'required|string|between:1,50',
             'pagina_web' => 'nullable|string|between:1,50',
             'total_capital'=>'nullable|numeric',
-            'deno_comercial' => 'nullable|string|between:1,50',
+            'deno_comercial' => 'nullable|string|between:1,50', 
             'ci' =>'nullable|integer',
             'nombre' =>'nullable|string|between:1,50',    
             'apellido' =>'nullable|string|between:1,50',
@@ -75,14 +75,48 @@ class ClientsController extends Controller
             $num_carnet = $request->input('num_carnet');
             $tienda = $request->input('tienda');
 
-        
-                $tipo= 'N';
-                DB::insert('Insert into Cliente (Cli_rif, Cli_correo, Cli_ci, Cli_nombre, Cli_apellido, Cli_num_carnet, Cli_tipo, fktienda)
-                 values(?,?,?,?,?,?,?,?)', [$rif, $correo,$ci,$nombre,$apellido,$num_carnet,$tipo,$tienda]);
+            /* Variables para la tabla Cli_lug */
+            $estado = $request->input('estado');
+            $municipio = $request->input('municipio');
+            $parroquia = $request->input('parroquia');
             
 
+            /* Variables para la tabla Usuario */
+            $usuario = $request->input('username');
+            $clave = $request->input('clave');
+            $usu_tipo= 'Cliente';
+            
+            if ($pagina_web == null){
+                $tipo= 'N';
+                DB::insert('Insert into Cliente (Cli_rif, Cli_correo, Cli_ci, Cli_nombre, Cli_apellido,  Cli_tipo, fktienda)
+                values(?,?,?,?,?,?,?)', [$rif, $correo,$ci,$nombre,$apellido,$tipo,$tienda]);
+                return ($usuario);
+                //$cliente =DB::select(DB::raw("SELECT cli_id from Cliente  where cli_correo = $correo"));
+                /* Insertes para la tabla de Cli_lug*/ 
+                /*  DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$estado,$cliente,$dir_tipo]);
+                    DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$municipio,$cliente,$dir_tipo]);
+                    DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$parroquia,$cliente,$dir_tipo]); */ 
+            }
+            else {
+                $tipo='J';
+                DB::insert('Insert into Cliente (CLi_rif, Cli_correo, Cli_pagina_web, Cli_deno_comercial, Cli_total_capital, fktienda)
+                values (?,?,?,?,?,?)', [$rif, $correo, $pagina_web,$deno_comercial, $total_capital, $tienda]);
+                $dir1_tipo='F'; $dir2_tipo='FP';
+
+                //$cliente =DB::select(DB::raw("SELECT cli_id from Cliente  where cli_correo = $correo"));
+                /* Insertes para la tabla de Cli_lug*/ 
+                /*  DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$estado,$cliente,$dir_tipo]);
+                    DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$municipio,$cliente,$dir_tipo]);
+                    DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$parroquia,$cliente,$dir_tipo]); */ 
+            }
+
+            /* Insert para la tabla de Usuario */
+            /*  $rol=DB::select(DB::raw("SELECT rol_id from Rol where rol_tipo = ''"));
+            DB::insert('Insert into Usuario (Usu_nombre, Usu_contrasena, Usu_tipo, fkcliente, fkrol)
+            values(?,?,?,?,?)', [$usuario, $clave, $usu_tipo, $cliente, $rol]); */
+
             Session::flash('message', 'Cliente creado');
-            return Redirect::to('candy-inicio');
+            return Redirect::to('registro');
     }
 
     /**
