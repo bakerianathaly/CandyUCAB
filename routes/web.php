@@ -11,6 +11,9 @@
 |
 */
 Route::resource('Producto','ProductosController');
+
+Route::resource('Tienda','TiendasController');
+
 Route::get('/', function () {
     return view('candy-inicio');
 });

@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="m-2">
             <div class=" ">
-                <h2 id="registro-letras">Editar Producto</h2>
+                <h2 id="registro-letras">Editar tienda</h2>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
             <div class="form-group">
                 <label for="formGroup">Sabor</label>
                 <select name= "sabor" id="sabor" class="form-control" required>
-                    <option value="{{$sab->sab_id}}">{{$sab->sab_nombre}}</option>
+                    <option value="">Seleccione el sabor </option>
                     @foreach($sabores as $sabor)
                     <option value="{{$sabor->sab_id}}">{{$sabor->sab_nombre}}</option>
                     @endforeach
@@ -53,7 +53,7 @@
             <div class="form-group">
                 <label for="formGroup">Tipo</label>
                 <select name= "tipo" id="tipocandy" class="form-control" required>
-                    <option value="{{$tip->tip_id}}">{{$tip->tip_nombre}}</option>
+                    <option value="">Seleccione el tipo de caramelo </option>
                     @foreach($tipos as $tipo)
                     <option value="{{$tipo->tip_id}}">{{$tipo->tip_nombre}}</option>
                     @endforeach
@@ -63,7 +63,7 @@
     </div>
 
     <div class="trans text-center">
-        {!! Form::submit('Agregar', ['class' => 'btn btn-default', 'style'=> 'background-color:#F79BEF;  margin-left: 587px;']) !!}
+        {!! Form::submit('Agregar', ['class' => 'btn btn-default', 'style'=> 'background-color:#F79BEF']) !!}
     </div>
     {!! Form::close() !!}
 @endsection
