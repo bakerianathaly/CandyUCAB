@@ -11,3 +11,15 @@
 |
 */
 Route::resource('Producto','ProductosController');
+
+Route::resource('Tienda','TiendasController');
+
+Route::get('/', function () {
+    return view('candy-inicio');
+});
+Route::get('/login',function(){
+    return view('candy-login');
+});
+Route::get('/promociones',function(){
+    return view('candy-login');
+});

@@ -1,10 +1,10 @@
 @extends('layouts.index')
-@section('title','Agregar producto')
+@section('title','Editar producto')
 @section('content')
     <div class="container-fluid">
         <div class="m-2">
             <div class=" ">
-                <h2 id="registro-letras">Agregar Producto</h2>
+                <h2 id="registro-letras">Editar tienda</h2>
             </div>
         </div>
     </div>
@@ -19,25 +19,27 @@
     @endif
     <div class="row container-fluid mt-5">
         <div class="col-lg-4 ml-auto">
-            {!! Form::open(['url' => 'Producto']) !!}
+            {!! Form::open(array('action' => array('ProductosController@update', $id))) !!}
+            {!! csrf_field() !!}
+            <input name="_method" type="hidden" value="PATCH">
             <div class="form-group">
                 <label for="formGroup">Nombre del producto</label>
-                <input class="form-control" type="text" name="nombre" placeholder="Ingresar nombre">
+            <input class="form-control"  type="text" name="nombre" value="{{$producto->pro_nombre}}">
             </div>
             <div class="form-group">
                 <label for="formGroup">Relleno</label>
-                <input class="form-control" type="text" name="relleno" placeholder="Ingresar el relleno">
+                <input class="form-control" type="text" name="relleno" value="{{$producto->pro_relleno}}">
             </div>
             <div class="form-group">
                 <label for="formGroup">Textura</label>
-                <input class="form-control" type="text" name="textura" placeholder="Ingrese la textura">
+                <input class="form-control" type="text" name="textura" value="{{$producto->pro_textura}}">
             </div>
 
         </div>
         <div class="col-lg-4 mr-auto">
             <div class="form-group">
                 <label for="formGroup">Puntuacion</label>
-                <input class="form-control" type="number" min="1" max="10" name="puntuacion" placeholder="Ingresar la puntuacion">
+                <input class="form-control" type="number" min="1" max="10" name="puntuacion" value="{{$producto->pro_puntuacion}}">
             </div>
             <div class="form-group">
                 <label for="formGroup">Sabor</label>

@@ -5,7 +5,7 @@ html {
 
 body {
     margin: 0;
-
+    background-color: #fff;
 }
 
 footer {
@@ -215,4 +215,15 @@ footer a {
 .isma{
     margin-top: 1.5%;
 }
-
+.menu_fijado {
+    position: absolute;
+    margin-top: 85px;
+    padding-right: 15px;
+    padding-top: 10px;
+    margin-left: 200px;
+}
+.centrar_boton{
+    margin-left: 931px;
+    background-color:#F79BEF;
+    color:black;
+}
