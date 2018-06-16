@@ -51,27 +51,6 @@
         </div>
         <div class="col-lg-4 mr-auto">
           <div class="form-group">
-                <label for="formGroup">Direccion</label>
-                <select name= "estado" id="estado" class="form-control mb-2" required>
-                    <option value="">Seleccione su estado </option>
-                    @foreach($estados as $estado)
-                        <option value="{{$estado->lug_id}}">{{$estado->lug_nombre}}</option>
-                    @endforeach
-                </select>
-                <select name= "municipio" id="municipio" class="form-control mb-2" required>
-                    <option value="">Seleccione el municipio </option>
-                    @foreach($municipios as $municipio)
-                        <option value="{{$municipio->lug_id}}">{{$municipio->lug_nombre}}</option>
-                    @endforeach
-                </select>
-                <select name= "parroquia" id="parroquia" class="form-control" required>
-                    <option value="">Seleccione la parroquia </option>
-                    @foreach($parroquias as $parroquia)
-                        <option value="{{$parroquia->lug_id}}">{{$parroquia->lug_nombre}}</option>
-                    @endforeach
-                </select>
-          </div>
-          <div class="form-group">
             <label for="formGroup">Numero de telefono</label>
             <input class="form-control" type="text" name="telefono" placeholder="">
           </div>
@@ -106,27 +85,6 @@
           <div class="form-group">
             <label for="formGroup">Pagina web</label>
             <input class="form-control" type="text" name="pagina_web" placeholder="www.candyUCAB.com">
-          </div>
-          <div class="form-group">
-            <label for="formGroup">Direccion</label>
-            <select name= "estado" id="estado" class="form-control mb-2" required>
-              <option value="">Seleccione su estado </option>
-              @foreach($estados as $estado)
-                <option value="{{$estado->lug_id}}">{{$estado->lug_nombre}}</option>
-              @endforeach
-            </select>
-            <select name= "municipio" id="municipio" class="form-control mb-2" required>
-              <option value="">Seleccione el municipio </option>
-              @foreach($municipios as $municipio)
-                <option value="{{$municipio->lug_id}}">{{$municipio->lug_nombre}}</option>
-              @endforeach
-            </select>
-            <select name= "parroquia" id="parroquia" class="form-control" required>
-              <option value="">Seleccione la parroquia </option>
-              @foreach($parroquias as $parroquia)
-                <option value="{{$parroquia->lug_id}}">{{$parroquia->lug_nombre}}</option>
-              @endforeach
-            </select>
           </div>
         </div>
       </div>

@@ -27,7 +27,7 @@
                     <a class="nav-link colorletras" href="/Producto">Producto</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link colorletras" href="/tiendas">Tiendas</a>
+                    <a class="nav-link colorletras" href="/Tienda">Tiendas</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link colorletras" href="/promociones">Promociones</a>
@@ -54,7 +54,7 @@
             <p>COPYRIGHT 2018 | TODOS LOS DERECHOS RESERVADOS</p>
         </div>
         <div class="col-md-4  isma">
-            <a href="/tiendas">Ubicanos</a>
+            <a href="/Tienda">Ubicanos</a>
             <a href="#">Terminos y condiciones</a>
         </div>
     </footer>

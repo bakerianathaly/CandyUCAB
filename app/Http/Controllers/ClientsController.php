@@ -57,19 +57,23 @@ class ClientsController extends Controller
             'nombre' =>'nullable|string|between:1,50',    
             'apellido' =>'nullable|string|between:1,50',
             'num_carnet' =>'nullable|string|between:1,50',
-            'tienda' =>'required|string|between:1,50'
+            'tienda' =>'required|string|between:1,50',
+            'username'=> 'required|string|between:1,50',
+            'clave'=> 'required|string|between:1,50',
+            'telefono'=>'required|numeric',
+            'contacto'=> 'nullable|string|between: 1,50'
         ];
         $customMessages = [
             'rif.required' => 'Debe introducir su RIF personal',
             'correo.required' => 'Debe introducir su correo',
-            'tienda.required' => 'Debe introducir su tienda de preferencia'
+            'tienda.required' => 'Debe introducir su tienda de preferencia',
+            'username.required' => 'Debe introducir un usuario para este cliente',
+            'clave.required' => 'Debe introducir una clave para el usuario',
+            'telefono.required' => 'Debe introducir un telefono de contacto'
         ];
             $this->validate($request, $rules, $customMessages);
             $rif = $request->input('rif');
             (string)$correo = $request->input('correo');
-            \Log::info($correo);
-            
-            \Log::info($correo);
             $pagina_web = $request->input('pagina_web');
             $razon_social = $request->input('razon_social');
             $total_capital = $request->input('total_capital');
@@ -80,20 +84,23 @@ class ClientsController extends Controller
             $num_carnet = $request->input('num_carnet');
             $tienda = $request->input('tienda');
 
-            /* Variables para la tabla Cli_lug */
-            $estado = $request->input('estado');
-            $municipio = $request->input('municipio');
-            $parroquia = $request->input('parroquia');
-            
-
             /* Variables para la tabla Usuario */
-            $usuario = $request->input('username');
-            $clave = $request->input('clave');
+            (string)$usuario = $request->input('username');
+            (string)$clave = $request->input('clave');
             $usu_tipo= 'Cliente';
+
+            /* Variables para la tabla Telefono */
+            $telefono=$request->input('telefono');
+            $tel_tipo='Principal';
             
             if ($pagina_web == null){
                 $tipo= 'N';
                 $dir_tipo='P';
+
+                /* Variables para la tabla Cli_lug */
+                $estado = $request->input('estado');
+                $municipio = $request->input('municipio');
+                $parroquia = $request->input('parroquia');
                 DB::insert('Insert into Cliente (Cli_rif, Cli_correo, Cli_ci, Cli_nombre, Cli_apellido,  Cli_tipo, fktienda)
                 values(?,?,?,?,?,?,?)', [$rif, $correo,$ci,$nombre,$apellido,$tipo,$tienda]);
                 $cliente =DB::select('select cli_id from Cliente  where cli_correo = ? ',[$correo]);
@@ -110,19 +117,38 @@ class ClientsController extends Controller
                 $tipo='J';
                 DB::insert('Insert into Cliente (CLi_rif, Cli_correo, Cli_pagina_web,Cli_razon_social ,Cli_deno_comercial, Cli_total_capital, Cli_tipo ,fktienda)
                 values (?,?,?,?,?,?,?,?)', [$rif, $correo, $pagina_web, $razon_social,$deno_comercial, $total_capital, $tipo, $tienda]);
-                $dir1_tipo='F'; $dir2_tipo='FP';
+                
+                $cliente =DB::select('select cli_id from Cliente  where cli_correo = ? ',[$correo]);
+                $id=$cliente[0]->cli_id;
 
-                //$cliente =DB::select(DB::raw("SELECT cli_id from Cliente  where cli_correo = $correo"));
-                /* Insertes para la tabla de Cli_lug*/ 
-                /*  DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$estado,$cliente,$dir_tipo]);
-                    DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$municipio,$cliente,$dir_tipo]);
-                    DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$parroquia,$cliente,$dir_tipo]); */ 
+                /* Tabla Contacto */
+                $contacto=$request->input('contacto');
+
+                DB::insert('Insert into Contacto (con_nombre, fkcliente) values(?,?)', [$contacto,$id]);
+
+                /* Tabla Cli_lug */
+                $dir1_tipo='F'; $dir2_tipo='FP';
+                $estadoF = $request->input('estadoF');
+                $municipioF = $request->input('municipioF');
+                $parroquiaF = $request->input('parroquiaF');
+                $estadoFP = $request->input('estadoFP');
+                $municipioFP = $request->input('municipioFP');
+                $parroquiaFP = $request->input('parroquiaFP');
+
+                DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$estadoF,$id,$dir1_tipo]);
+                DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$municipioF,$id,$dir1_tipo]);
+                DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$parroquiaF,$id,$dir1_tipo]); 
+                DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$estadoFP,$id,$dir2_tipo]);
+                DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$municipioFP,$id,$dir2_tipo]);
+                DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$parroquiaFP,$id,$dir2_tipo]);
             }
 
-            /* Insert para la tabla de Usuario */
-            /*  $rol=DB::select(DB::raw("SELECT rol_id from Rol where rol_tipo = ''"));
+            /* Tabla de Usuario */
+            $rol=DB::select('select rol_id from Rol where rol_tipo = ?',[$usu_tipo]);
+            $id_rol=$rol[0]->rol_id;
             DB::insert('Insert into Usuario (Usu_nombre, Usu_contrasena, Usu_tipo, fkcliente, fkrol)
-            values(?,?,?,?,?)', [$usuario, $clave, $usu_tipo, $cliente, $rol]); */
+            values(?,?,?,?,?)', [$usuario, $clave, $usu_tipo, $id, $id_rol]);
+            DB::insert('Insert into Telefono (Tel_tipo, Tel_numero, fkCliente) values (?,?,?)', [$tel_tipo, $telefono, $id]);
 
             Session::flash('message', 'Cliente creado');
             return Redirect::to('registro');
@@ -163,12 +189,13 @@ class ClientsController extends Controller
      */
     public function update(Request $request, $id){
         $rules = [
-            'correo' => 'required|string|between:1,50',
-            'pagina_web' => 'nullable|string|between:1,50',
             'nombre' =>'nullable|string|between:1,50',    
             'apellido' =>'nullable|string|between:1,50',
-            'clave'=>'nullable|string|between:1,50',
-            'telefono'=>'nullable|numeric|between:1,50'
+            'pagina_web' => 'nullable|string|between:1,50',
+            'correo' => 'nullable|string|between:1,50',
+            'tienda' => 'nullable|number',
+            'telefono'=>'nullable|numeric|between:1,50',
+            'clave'=>'nullable|string|between:1,50'
         ];
         $this->validate($request, $rules);
         $nombre = $request->input('nombre');
@@ -181,7 +208,6 @@ class ClientsController extends Controller
         $tipos = DB::select('select cli_tipo from Cliente where cli_id = :id', ['id'=>$id]);
         $tipo=$tipos[0]->cli_tipo;
         
-        //$tipo=DB::select(DB::raw("SELECT cli_tipo from Cliente where cli_correo = '$correo'"));
         if ($telefono == NULL){
             DB::update('update Cliente set cli_nombre = ?, cli_apellido=? ,cli_pagina_web=?, cli_correo=? where cli_id= ?', 
             [$nombre,$apellido,$pagina_web,$correo,$id]);

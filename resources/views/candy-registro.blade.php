@@ -56,13 +56,17 @@
           </div>
           <div class="form-group">
             <label for="formGroup">Clave</label>
-            <input class="form-control" type="password" name="clave" placeholder="Ingresar clave para el usuario*">
+            <input class="form-control" type="password" name="clave" placeholder="Ingresar clave para el usuario*" required>
           </div> 
+          <div class="form-group">
+            <label for="formGroup">Telefono de contacto</label>
+            <input class="form-control" type="text" name="telefono" placeholder="02432398765" required>
+          </div>
         </div>
         <div class="col-lg-4 mr-auto">
           <div class="form-group">
             <label for="formGroup">RIF</label>
-            <input class="form-control" type="text" name="rif" placeholder="Ingrese el RIF">
+            <input class="form-control" type="text" name="rif" placeholder="Ingrese el RIF" required>
           </div>
           <div class="form-group">
             <label for="formGroup">Cedula</label>
@@ -139,8 +143,6 @@
             <label for="formGroup">Persona de contacto</label>
             <input class="form-control" type="text" name="contacto" placeholder="Ingrese el nombre de la persona de contacto">
           </div>
-        </div>
-        <div class="col-lg-4 mr-auto">
           <div class="form-group">
             <label for="formGroup">Pagina web</label>
             <input class="form-control" type="text" name="pagina_web" placeholder="www.candyUCAB.com">
@@ -148,6 +150,12 @@
           <div class="form-group">
             <label for="formGroup">Razon social</label>
             <input class="form-control" type="text" name="razon_social" placeholder="C.A">
+          </div>
+        </div>
+        <div class="col-lg-4 mr-auto">
+          <div class="form-group">
+            <label for="formGroup">Telefono de contacto</label>
+            <input class="form-control" type="text" name="telefono" placeholder="02432398765" required>
           </div>
           <div class="form-group">
             <label for="formGroup">Denominacion comercial</label>
@@ -163,23 +171,44 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="formGroup">Direccion</label>
-            <select name= "estado" id="estado" class="form-control mb-2" required>
+            <label for="formGroup">Direccion Fiscal</label>
+            <select name= "estadoF" id="estadoF" class="form-control mb-2" required>
               <option value="">Seleccione su estado </option>
-              @foreach($estados as $estado)
-                <option value="{{$estado->lug_id}}">{{$estado->lug_nombre}}</option>
+              @foreach($estados as $estadoF)
+                <option value="{{$estadoF->lug_id}}">{{$estadoF->lug_nombre}}</option>
               @endforeach
             </select>
-            <select name= "municipio" id="municipio" class="form-control mb-2" required>
+            <select name= "municipioF" id="municipioF" class="form-control mb-2" required>
               <option value="">Seleccione el municipio </option>
-              @foreach($municipios as $municipio)
-                <option value="{{$municipio->lug_id}}">{{$municipio->lug_nombre}}</option>
+              @foreach($municipios as $municipioF)
+                <option value="{{$municipioF->lug_id}}">{{$municipioF->lug_nombre}}</option>
               @endforeach
             </select>
-            <select name= "parroquia" id="parroquia" class="form-control" required>
+            <select name= "parroquiaF" id="parroquiaF" class="form-control" required>
               <option value="">Seleccione la parroquia </option>
-              @foreach($parroquias as $parroquia)
-                <option value="{{$parroquia->lug_id}}">{{$parroquia->lug_nombre}}</option>
+              @foreach($parroquias as $parroquiaF)
+                <option value="{{$parroquiaF->lug_id}}">{{$parroquiaF->lug_nombre}}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="formGroup">Direccion Fiscal Principal</label>
+            <select name= "estadoFP" id="estadoFP" class="form-control mb-2" required>
+              <option value="">Seleccione su estado </option>
+              @foreach($estados as $estadoFP)
+                <option value="{{$estadoFP->lug_id}}">{{$estadoFP->lug_nombre}}</option>
+              @endforeach
+            </select>
+            <select name= "municipioFP" id="municipioFP" class="form-control mb-2" required>
+              <option value="">Seleccione el municipio </option>
+              @foreach($municipios as $municipioFP)
+                <option value="{{$municipioFP->lug_id}}">{{$municipioFP->lug_nombre}}</option>
+              @endforeach
+            </select>
+            <select name= "parroquiaFP" id="parroquiaFP" class="form-control" required>
+              <option value="">Seleccione la parroquia </option>
+              @foreach($parroquias as $parroquiaFP)
+                <option value="{{$parroquiaFP->lug_id}}">{{$parroquiaFP->lug_nombre}}</option>
               @endforeach
             </select>
           </div>
