@@ -19,46 +19,27 @@
     @endif
     <div class="row container-fluid mt-5">
         <div class="col-lg-4 ml-auto">
-            {!! Form::open(array('action' => array('ProductosController@update', $id))) !!}
+            {!! Form::open(array('action' => array('TiendasController@update', $id))) !!}
             {!! csrf_field() !!}
             <input name="_method" type="hidden" value="PATCH">
-            <div class="form-group">
-                <label for="formGroup">Nombre del producto</label>
-            <input class="form-control"  type="text" name="nombre" value="{{$producto->pro_nombre}}">
-            </div>
-            <div class="form-group">
-                <label for="formGroup">Relleno</label>
-                <input class="form-control" type="text" name="relleno" value="{{$producto->pro_relleno}}">
-            </div>
-            <div class="form-group">
-                <label for="formGroup">Textura</label>
-                <input class="form-control" type="text" name="textura" value="{{$producto->pro_textura}}">
-            </div>
-
+            <label for="formGroup">Tipo de tienda</label>  
+                <select name= "tipo" id="tipocandy" class="form-control" required>
+                    <option value="{{$tienda->tie_tipo}}">{{$tienda->tie_tipo}}</option>
+                    <option value="CandyUCAB">CandyUCAB</option>
+                    <option value="MiniCandyUCAB">MiniCandyUCAB</option>
+                </select>
         </div>
         <div class="col-lg-4 mr-auto">
             <div class="form-group">
-                <label for="formGroup">Puntuacion</label>
-                <input class="form-control" type="number" min="1" max="10" name="puntuacion" value="{{$producto->pro_puntuacion}}">
-            </div>
-            <div class="form-group">
-                <label for="formGroup">Sabor</label>
-                <select name= "sabor" id="sabor" class="form-control" required>
-                    <option value="">Seleccione el sabor </option>
-                    @foreach($sabores as $sabor)
-                    <option value="{{$sabor->sab_id}}">{{$sabor->sab_nombre}}</option>
+                <label for="formGroup">Direccion</label>
+                <select name= "fklugar" id="direccion" class="form-control" required>
+                    <option value="{{$lugar->lug_id}}">{{$lugar->lug_nombre}}</option>
+                    @foreach($parroquias as $parroquia)
+                    <option value="{{$parroquia->lug_id}}">{{$parroquia->lug_nombre}}</option>
                     @endforeach
                 </select>
             </div>
-            <div class="form-group">
-                <label for="formGroup">Tipo</label>
-                <select name= "tipo" id="tipocandy" class="form-control" required>
-                    <option value="">Seleccione el tipo de caramelo </option>
-                    @foreach($tipos as $tipo)
-                    <option value="{{$tipo->tip_id}}">{{$tipo->tip_nombre}}</option>
-                    @endforeach
-                </select>
-            </div>
+         </div>
         </div>
     </div>
 
