@@ -23,18 +23,18 @@
              <label for="formGroup">Tipo de tienda</label>  
                 <select name= "tipo" id="tipocandy" class="form-control" required>
                     <option value="">Seleccione el tipo de tienda</option>
-                    <option value="">CandyUCAB</option>
-                    <option value="">MiniCandyUCAB</option>
+                    <option value="CandyUCAB">CandyUCAB</option>
+                    <option value="MiniCandyUCAB">MiniCandyUCAB</option>
                 </select>
 
         </div>
         <div class="col-lg-4 mr-auto">
             <div class="form-group">
                 <label for="formGroup">Direccion</label>
-                <select name= "direccion" id="direccion" class="form-control" required>
+                <select name= "fklugar" id="direccion" class="form-control" required>
                     <option value="">Seleccione el estado </option>
-                    @foreach($estados as $estado)
-                    <option value="{{$estado->lug_nombre}}">{{$estado->lug_nombre}}</option>
+                    @foreach($parroquias as $parroquia)
+                    <option value="{{$parroquia->lug_id}}">{{$parroquia->lug_nombre}}</option>
                     @endforeach
                 </select>
             </div>

@@ -47,7 +47,7 @@
                 </td>
                 <input name="_method" type="hidden" value="PATCH">
                 <td>
-                    <form action="{{action('ProductosController@destroy', $tienda->tie_id)}}" method="post">
+                    <form action="{{action('TiendasController@destroy', $tienda->tie_id)}}" method="post">
                         {{csrf_field()}}
                         <input name="_method" type="hidden" value="DELETE">
                         <button class="btn btn-danger" type="submit">Eliminar</button>
@@ -57,5 +57,6 @@
             @endforeach
         </tbody>
     </table>
+    <td><a href="{{action('TiendasController@create')}}" class="btn centrar_boton">Agregar Tienda</a></td>
 </div>
 {!! Form::close() !!} @endsection
