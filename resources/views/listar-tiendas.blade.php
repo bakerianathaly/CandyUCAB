@@ -57,6 +57,6 @@
             @endforeach
         </tbody>
     </table>
-    <td><a href="{{action('TiendasController@create')}}" class="btn centrar_boton " id="botonRosado2">Agregar Tienda</a></td>
+    <td><a href="{{action('TiendasController@create')}}" class="btn centrar_boton">Agregar Tienda</a></td>
 </div>
 {!! Form::close() !!} @endsection

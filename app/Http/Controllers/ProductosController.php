@@ -65,7 +65,7 @@ class ProductosController extends Controller
         $tipo = $request->input('tipo');
         DB::insert('Insert into public.Producto (Pro_nombre,Pro_relleno,Pro_textura,Pro_puntuacion,fksabor,fktipo) values (?,?,?,?,?,?)', [$nombre,$relleno,$textura,$puntuacion,$sabor,$tipo]);
         Session::flash('message', 'Producto creado');
-        return redirect('/');
+       return redirect()->action('ProductosController@index')->with('success','El producto fue agregado');
     }
     /**
      * Display the specified resource.
