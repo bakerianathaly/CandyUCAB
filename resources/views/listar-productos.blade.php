@@ -29,7 +29,6 @@
       <tr>
         <th>ID</th>
         <th>Nombre</th>
-        <th>Precio</th>
         <th>Puntuacion</th>
         <th>Relleno</th>
         <th>Textura</th>
@@ -43,7 +42,6 @@
         <td>{{$producto->pro_id}}</td>
         <td>{{$producto->pro_nombre}}</td>
         <td>{{$producto->pro_puntuacion}}</td>
-        <td><a  href="{{action('ProductosController@edit', $producto->pro_id)}}" class="btn btn-warning">Edit</a></td>
         <td>{{$producto->pro_relleno}}</td>
         <td>{{$producto->pro_textura}}</td>
         <td>{{$producto->pro_descripcion}}</td>
@@ -54,7 +52,6 @@
           <form action="{{action('ProductosController@destroy', $producto->pro_id)}}" method="post">
             {{csrf_field()}}
             <input name="_method" type="hidden" value="DELETE">
-            <button class="btn btn-danger" type="submit">Delete</button>
             <button class="btn btn-danger" type="submit">Eliminar</button>
           </form>
         </td>

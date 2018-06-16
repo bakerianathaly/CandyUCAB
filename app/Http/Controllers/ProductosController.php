@@ -65,7 +65,7 @@ class ProductosController extends Controller
         $tipo = $request->input('tipo');
         DB::insert('Insert into public.Producto (Pro_nombre,Pro_relleno,Pro_textura,Pro_puntuacion,fksabor,fktipo) values (?,?,?,?,?,?)', [$nombre,$relleno,$textura,$puntuacion,$sabor,$tipo]);
         Session::flash('message', 'Producto creado');
-        return redirect('/');
+       return redirect()->action('ProductosController@index')->with('success','El producto fue agregado');
     }
     /**
      * Display the specified resource.
@@ -90,7 +90,6 @@ class ProductosController extends Controller
         $sabores=DB::select(DB::raw("SELECT sab_id, sab_nombre from sabor;"));
         $productos = DB::select('select * from public.Producto where Pro_id = :id', ['id'=>$id]);
         $producto=$productos[0];
-        return view('editar-producto', compact('producto','sabores','tipos','id'));
         $sabs =  DB::select('select * from public.sabor where sab_id = ?', [$producto->fksabor]);
         $sab = $sabs[0];
         $tips =  DB::select('select * from public.tipo where tip_id = ?', [$producto->fktipo]);

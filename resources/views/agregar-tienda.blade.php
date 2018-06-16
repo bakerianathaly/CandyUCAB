@@ -43,7 +43,7 @@
     </div>
 
     <div class="trans text-center">
-        {!! Form::submit('Agregar', ['class' => 'btn btn-default', 'style'=> 'background-color:#F79BEF']) !!}
+        {!! Form::submit('Agregar', ['class' => 'btn btn-default', 'style'=> 'background-color:#F79BEF; margin-left: 587px;']) !!}
     </div>
     {!! Form::close() !!}
 @endsection

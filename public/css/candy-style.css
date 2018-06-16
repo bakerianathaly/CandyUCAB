@@ -218,3 +218,10 @@ footer a {
 .center{
     margin-left: 18%;
 }
+.centrar_boton{
+    background-color:#F79BEF;
+    margin-left: 934px;
+}
+.centrar_boton a:link{
+    color:#100;
+}
