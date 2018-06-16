@@ -24,7 +24,7 @@
             <input name="_method" type="hidden" value="PATCH">
             <div class="form-group">
                 <label for="formGroup">Nombre del producto</label>
-            <input class="form-control"  type="text" name="nombre" value="{{$producto->pro_nombre}}">
+                <input class="form-control"  type="text" name="nombre" value="{{$producto->pro_nombre}}">
             </div>
             <div class="form-group">
                 <label for="formGroup">Relleno</label>
