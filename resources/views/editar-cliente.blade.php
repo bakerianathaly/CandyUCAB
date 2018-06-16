@@ -47,12 +47,24 @@
             <label for="formGroup">Correo</label>
             <input class="form-control" type="text" name="correo" placeholder="Ingrese el correo electronico" value="{{$cliente->cli_correo}}">
           </div>
-         
         </div>
         <div class="col-lg-4 mr-auto">
           <div class="form-group">
             <label for="formGroup">Numero de telefono</label>
-            <input class="form-control" type="text" name="telefono" placeholder="">
+            <input class="form-control" type="text" name="telefono" placeholder="Ingresar numero de telefono" value="{{$telefono->tel_numero}}">
+          </div>
+          <div class="form-group">
+            <label for="formGroup">Tienda</label>
+            <select name= "tiendas" id="tiendas" class="form-control" required>
+              <option value="">{{$tiendas->tie_tipo}} {{$tiendas->lug_nombre}}</option>
+              @foreach($tienda as $tien)
+                <option value="{{$tien->tie_id}}">{{$tien->tie_tipo}} {{$tien->lug_nombre}}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="formGroup">Clave</label>
+            <input class="form-control" type="password" name="clave" placeholder="Ingresar clave para el usuario*" value="$usuario->usu_contrasena">
           </div>
         </div>
       </div>
@@ -70,21 +82,34 @@
           <input name="_method" type="hidden" value="PATCH">
           <div class="form-group">
             <label for="formGroup">Correo</label>
-            <input class="form-control" type="text" name="correo" placeholder="candyUCAB@candy.com">
+            <input class="form-control" type="text" name="correo" placeholder="candyUCAB@candy.com" value="{{$cliente->cli_correo}}">
           </div>
-          <!-- <div class="form-group">
+          <div class="form-group">
             <label for="formGroup">Clave</label>
-            <input class="form-control" type="password" name="clave" placeholder="Ingresar clave para el usuario*">
-          </div>  -->
+            <input class="form-control" type="password" name="clave" placeholder="Ingresar clave para el usuario*" value="$usuario->usu_contrasena">
+          </div>
           <div class="form-group">
             <label for="formGroup">Persona de contacto</label>
-            <input class="form-control" type="text" name="contacto" placeholder="Ingrese el nombre de la persona de contacto">
+            <input class="form-control" type="text" name="contacto" placeholder="Ingrese el nombre de la persona de contacto" value="{{$contacto->con_nombre}}">
           </div>
         </div>
         <div class="col-lg-4 mr-auto">
           <div class="form-group">
             <label for="formGroup">Pagina web</label>
-            <input class="form-control" type="text" name="pagina_web" placeholder="www.candyUCAB.com">
+            <input class="form-control" type="text" name="pagina_web" placeholder="www.candyUCAB.com" value="{{$cliente->cli_pagina_web}}">
+          </div>
+          <div class="form-group">
+            <label for="formGroup">Numero de telefono</label>
+            <input class="form-control" type="text" name="telefono" placeholder="Ingresar numero de telefono" value="{{$telefono->tel_numero}}">
+          </div>
+          <div class="form-group">
+            <label for="formGroup">Tienda</label>
+            <select name= "tiendas" id="tiendas" class="form-control" required>
+              <option value="">{{$tiendas->tie_tipo}} {{$tiendas->lug_nombre}}</option>
+              @foreach($tienda as $tienda)
+                <option value="{{$tienda->tie_id}}">{{$tienda->tie_tipo}} {{$tienda->lug_nombre}}</option>
+              @endforeach
+            </select>
           </div>
         </div>
       </div>

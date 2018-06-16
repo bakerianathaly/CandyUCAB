@@ -172,12 +172,18 @@ class ClientsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
-        /* $usuarios= DB::Select('select usu_nombre from Usuario where fkCliente= :id' ,['id'=>$id]);
-        $usuario=$usuarios;
-        \Log::info($usuarios); */
         $clientes = DB::select('select * from Cliente where cli_id = :id', ['id'=>$id]);
         $cliente=$clientes[0];
-        return view('editar-cliente', compact('cliente','id'));
+        $usuarios= DB::Select('select usu_nombre,usu_contrasena from Usuario where fkCliente= ?' ,[$id]);
+        $usuario=$usuarios[0];
+        $telefonos = DB::Select('select tel_numero from Telefono where fkCliente= :id', ['id'=>$id]);
+        $telefono=$telefonos[0];
+        $contactos= DB::Select('select con_nombre from Contacto where fkCliente= :id', ['id'=>$id]);
+        $contacto=$contactos[0];
+        $tiendas=DB::select('select t.*, lug_nombre from Tienda t, Lugar where tie_id = ? and Lug_id = t.fklugar', [$cliente->fktienda]);
+        $tiendas=$tiendas[0];
+        $tienda = DB::select(DB::raw("SELECT t.tie_tipo, t.tie_id,l.lug_nombre from tienda t, lugar l where t.fklugar = l.lug_id;"));
+        return view('editar-cliente', compact('cliente','id','usuario','telefono','contacto','tiendas','tienda'));
     }
 
     /**
@@ -194,8 +200,9 @@ class ClientsController extends Controller
             'pagina_web' => 'nullable|string|between:1,50',
             'correo' => 'nullable|string|between:1,50',
             'tienda' => 'nullable|number',
-            'telefono'=>'nullable|numeric|between:1,50',
-            'clave'=>'nullable|string|between:1,50'
+            'telefono'=>'nullable|numeric',
+            'clave'=>'nullable|string|between:1,50',
+            'contacto'=>'nullable|string|between:1,50'
         ];
         $this->validate($request, $rules);
         $nombre = $request->input('nombre');
@@ -203,23 +210,16 @@ class ClientsController extends Controller
         $pagina_web = $request->input('pagina_web');
         $correo = $request->input('correo');
         $telefono = $request->input('telefono');
-        //$clave=$request->input('clave');
+        $clave=$request->input('clave');
+        $contacto= $request->input('contacto');
+        $tienda = $request->input('tiendas');
 
-        $tipos = DB::select('select cli_tipo from Cliente where cli_id = :id', ['id'=>$id]);
-        $tipo=$tipos[0]->cli_tipo;
-        
-        if ($telefono == NULL){
-            DB::update('update Cliente set cli_nombre = ?, cli_apellido=? ,cli_pagina_web=?, cli_correo=? where cli_id= ?', 
-            [$nombre,$apellido,$pagina_web,$correo,$id]);
-        }
-        else if ($telefono != NULL && ($nombre==NULL && $apellido ==NULL && $pagina_web==NULL && $correo==NULL && $clave)){
-            DB::update('update Telefono set tel_numero =? where fkCliente = ?',[$telefono,$id]);
-        }
-        else {
-            DB::update('update Cliente set cli_nombre = ?, cli_apellido=? ,cli_pagina_web=?, cli_correo=? where cli_id= ?', 
-            [$nombre,$apellido,$pagina_web,$correo,$id]);
-            DB::update('update Telefono set tel_numero =? where fkCliente = ?',[$telefono,$id]);
-        }
+        DB::update('update Cliente set cli_nombre = ?, cli_apellido=? ,cli_pagina_web=?, cli_correo=?, fktienda=? where cli_id= ?', 
+        [$nombre,$apellido,$pagina_web,$correo,$tienda,$id]);
+        DB::update('update Telefono set tel_numero =? where fkCliente = ?',[$telefono,$id]);
+        DB::update('update Usuario set usu_contrasena =? where fkCliente = ?',[$clave,$id]);
+        DB::update('update Contacto set con_nombre =? where fkCliente = ?',[$contacto,$id]); 
+
         return redirect()->action('ClientsController@index')->with('success','El cliente fue editado');
     }
 
