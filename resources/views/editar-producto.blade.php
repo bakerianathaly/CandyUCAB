@@ -25,6 +25,7 @@
             <div class="form-group">
                 <label for="formGroup">Nombre del producto</label>
                 <input class="form-control"  type="text" name="nombre" value="{{$producto->pro_nombre}}">
+            <input class="form-control"  type="text" name="nombre" value="{{$producto->pro_nombre}}">
             </div>
             <div class="form-group">
                 <label for="formGroup">Relleno</label>
@@ -45,6 +46,7 @@
                 <label for="formGroup">Sabor</label>
                 <select name= "sabor" id="sabor" class="form-control" required>
                     <option value="">Seleccione el sabor </option>
+                    <option value="{{$sab->sab_id}}">{{$sab->sab_nombre}}</option>
                     @foreach($sabores as $sabor)
                     <option value="{{$sabor->sab_id}}">{{$sabor->sab_nombre}}</option>
                     @endforeach
@@ -54,6 +56,7 @@
                 <label for="formGroup">Tipo</label>
                 <select name= "tipo" id="tipocandy" class="form-control" required>
                     <option value="">Seleccione el tipo de caramelo </option>
+                    <option value="{{$tip->tip_id}}">{{$tip->tip_nombre}}</option>
                     @foreach($tipos as $tipo)
                     <option value="{{$tipo->tip_id}}">{{$tipo->tip_nombre}}</option>
                     @endforeach
@@ -64,6 +67,7 @@
 
     <div class="trans text-center">
         {!! Form::submit('Agregar', ['class' => 'btn btn-default', 'style'=> 'background-color:#F79BEF']) !!}
+        {!! Form::submit('Agregar', ['class' => 'btn btn-default', 'style'=> 'background-color:#F79BEF;  margin-left: 587px;']) !!}
     </div>
     {!! Form::close() !!}
 @endsection

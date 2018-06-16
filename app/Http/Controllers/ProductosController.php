@@ -91,6 +91,11 @@ class ProductosController extends Controller
         $productos = DB::select('select * from public.Producto where Pro_id = :id', ['id'=>$id]);
         $producto=$productos[0];
         return view('editar-producto', compact('producto','sabores','tipos','id'));
+        $sabs =  DB::select('select * from public.sabor where sab_id = ?', [$producto->fksabor]);
+        $sab = $sabs[0];
+        $tips =  DB::select('select * from public.tipo where tip_id = ?', [$producto->fktipo]);
+        $tip = $tips[0];
+        return view('editar-producto', compact('producto','sabores','tipos','id','sab','tip'));
 
     }
     /**
