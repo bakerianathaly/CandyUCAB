@@ -18,9 +18,14 @@ Route::resource('Tienda','TiendasController');
 Route::get('/', function () {
     return view('candy-inicio');
 });
-Route::get('/login',function(){
+Route::get('logout', 'ClientsController@logout');
+Route::get('login',function(){
     return view('candy-login');
-});
+})->middleware('Autenticado');
 Route::get('/promociones',function(){
     return view('candy-login');
 });
+Route::post('login','ClientsController@login');
+//Route::post('login','Auth\LoginController@authenticate');
+Route::get('SesionFallida','ClientsController@SesionFallida');
+Route::get('iniciarSesion','ClientsController@abrirSesion');
