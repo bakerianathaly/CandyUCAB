@@ -80,7 +80,7 @@ class ClientsController extends Controller
             $nombre = $request->input('nombre');
             $apellido = $request->input('apellido');
             $num_carnet = $request->input('num_carnet');
-            $tienda = $request->input('tienda');            
+            $tienda = $request->input('tienda');
 
             /* Variables para la tabla Telefono */
             $telefono=$request->input('telefono');
@@ -151,7 +151,7 @@ class ClientsController extends Controller
     public function show($correo) {
         return view('registro-usuario');
     }
-    
+
     function crearUsuario (Request $request){
         $rules = [
             'correo' => 'required|email|between:1,50',
@@ -235,11 +235,11 @@ class ClientsController extends Controller
         $contacto= $request->input('contacto');
         $tienda = $request->input('tiendas');
 
-        DB::update('update Cliente set cli_nombre = ?, cli_apellido=? ,cli_pagina_web=?, cli_correo=?, fktienda=? where cli_id= ?', 
+        DB::update('update Cliente set cli_nombre = ?, cli_apellido=? ,cli_pagina_web=?, cli_correo=?, fktienda=? where cli_id= ?',
         [$nombre,$apellido,$pagina_web,$correo,$tienda,$id]);
         DB::update('update Telefono set tel_numero =? where fkCliente = ?',[$telefono,$id]);
         DB::update('update Usuario set usu_contrasena =? where fkCliente = ?',[$clave,$id]);
-        DB::update('update Contacto set con_nombre =? where fkCliente = ?',[$contacto,$id]); 
+        DB::update('update Contacto set con_nombre =? where fkCliente = ?',[$contacto,$id]);
 
         return redirect()->action('ClientsController@index')->with('success','El cliente fue editado');
     }
@@ -289,7 +289,6 @@ class ClientsController extends Controller
       (string)$username = $request->input('username');
       (string)$password = $request->input('password');
       $usuario=DB::select('select * from usuario where usu_nombre = ? and usu_contrasena = ?',[$username, $password]);
-      var_dump($usuario[0]->usu_nombre);
       if ($usuario){
         //Inicia la sesion del usuario y guarda los datos que no son delicados
         $_SESSION['Middleware'] = true;
