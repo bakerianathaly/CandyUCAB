@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 use Session;
 use Redirect;
 use Validator;
 
 class ClientsController extends Controller
 {
-    /*  Consulta para las direcciones del cliente: 
+    /*  Consulta para las direcciones del cliente:
         select q.*
         from lugar q, (select s.lug_id, s.lug_nombre from lugar s,lugar a where a.lug_nombre = 'Apure' and a.lug_id = s.fklugar) as x
         where x.lug_nombre = 'Achaguas' and q.fklugar = x.lug_id;  */
@@ -51,10 +53,10 @@ class ClientsController extends Controller
             'correo' => 'required|email|between:1,50',
             'pagina_web' => 'nullable|string|between:1,50',
             'total_capital'=>'nullable|numeric',
-            'deno_comercial' => 'nullable|string|between:1,50', 
+            'deno_comercial' => 'nullable|string|between:1,50',
             'razon_social' => 'nullable|string|between:1,50',
             'ci' =>'nullable|integer',
-            'nombre' =>'nullable|string|between:1,50',    
+            'nombre' =>'nullable|string|between:1,50',
             'apellido' =>'nullable|string|between:1,50',
             'num_carnet' =>'nullable|string|between:1,50',
             'tienda' =>'required|string|between:1,50',
@@ -78,12 +80,12 @@ class ClientsController extends Controller
             $nombre = $request->input('nombre');
             $apellido = $request->input('apellido');
             $num_carnet = $request->input('num_carnet');
-            $tienda = $request->input('tienda');            
+            $tienda = $request->input('tienda');
 
             /* Variables para la tabla Telefono */
             $telefono=$request->input('telefono');
             $tel_tipo='Principal';
-            
+
             if ($pagina_web == null){
                 $tipo= 'N';
                 $dir_tipo='P';
@@ -98,8 +100,8 @@ class ClientsController extends Controller
                 $id=$cliente[0]->cli_id;
                 /* Esta consulta me regresa un arreglo de objetos, al cual como me regresa un solo cliente con un solo atributo accedo
                     $id=$cliente[0]->cli_id, si hubiera mas clientes debo recorrerlo con un foreach */
-                
-                /* Insertes para la tabla de Cli_lug*/ 
+
+                /* Insertes para la tabla de Cli_lug*/
                 DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$estado,$id,$dir_tipo]);
                 DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$municipio,$id,$dir_tipo]);
                 DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$parroquia,$id,$dir_tipo]);
@@ -108,7 +110,7 @@ class ClientsController extends Controller
                 $tipo='J';
                 DB::insert('Insert into Cliente (CLi_rif, Cli_correo, Cli_pagina_web,Cli_razon_social ,Cli_deno_comercial, Cli_total_capital, Cli_tipo ,fktienda)
                 values (?,?,?,?,?,?,?,?)', [$rif, $correo, $pagina_web, $razon_social,$deno_comercial, $total_capital, $tipo, $tienda]);
-                
+
                 $cliente =DB::select('select cli_id from Cliente  where cli_correo = ? ',[$correo]);
                 $id=$cliente[0]->cli_id;
 
@@ -128,7 +130,7 @@ class ClientsController extends Controller
 
                 DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$estadoF,$id,$dir1_tipo]);
                 DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$municipioF,$id,$dir1_tipo]);
-                DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$parroquiaF,$id,$dir1_tipo]); 
+                DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$parroquiaF,$id,$dir1_tipo]);
                 DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$estadoFP,$id,$dir2_tipo]);
                 DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$municipioFP,$id,$dir2_tipo]);
                 DB::insert('Insert into Cli_lug (fklugar, fkcliente, cli_tipo) values(?,?,?)', [$parroquiaFP,$id,$dir2_tipo]);
@@ -149,7 +151,7 @@ class ClientsController extends Controller
     public function show($correo) {
         return view('registro-usuario');
     }
-    
+
     function crearUsuario (Request $request){
         $rules = [
             'correo' => 'required|email|between:1,50',
@@ -213,7 +215,7 @@ class ClientsController extends Controller
      */
     public function update(Request $request, $id){
         $rules = [
-            'nombre' =>'nullable|string|between:1,50',    
+            'nombre' =>'nullable|string|between:1,50',
             'apellido' =>'nullable|string|between:1,50',
             'pagina_web' => 'nullable|string|between:1,50',
             'correo' => 'nullable|string|between:1,50',
@@ -228,15 +230,16 @@ class ClientsController extends Controller
         $pagina_web = $request->input('pagina_web');
         $correo = $request->input('correo');
         $telefono = $request->input('telefono');
+
         $clave=$request->input('clave');
         $contacto= $request->input('contacto');
         $tienda = $request->input('tiendas');
 
-        DB::update('update Cliente set cli_nombre = ?, cli_apellido=? ,cli_pagina_web=?, cli_correo=?, fktienda=? where cli_id= ?', 
+        DB::update('update Cliente set cli_nombre = ?, cli_apellido=? ,cli_pagina_web=?, cli_correo=?, fktienda=? where cli_id= ?',
         [$nombre,$apellido,$pagina_web,$correo,$tienda,$id]);
         DB::update('update Telefono set tel_numero =? where fkCliente = ?',[$telefono,$id]);
         DB::update('update Usuario set usu_contrasena =? where fkCliente = ?',[$clave,$id]);
-        DB::update('update Contacto set con_nombre =? where fkCliente = ?',[$contacto,$id]); 
+        DB::update('update Contacto set con_nombre =? where fkCliente = ?',[$contacto,$id]);
 
         return redirect()->action('ClientsController@index')->with('success','El cliente fue editado');
     }
@@ -256,5 +259,60 @@ class ClientsController extends Controller
         DB::delete('delete from metodo_pago where fkCliente = :id', ['id'=>$id]);
         DB::delete('delete from cliente where Cli_id = :id ', ['id'=>$id]);
         return redirect()->action('ClientsController@index')->with('success','El cliente fue eliminado');
+    }
+
+    public function abrirSesion(){
+        return view('candy-inicio');
+    }
+    public function SesionFallida(){
+        return view('candy-login');
+    }
+
+    public function login(Request $request){
+      @session_start();
+      // esto va en el parentesis para poner un tiempo a la sesion ['cookie lifetime' => 31536000,]
+      $_SESSION['Middleware'] = false;
+      $_SESSION['id']='';
+      $_SESSION['nombre']='';
+      $_SESSION['tipo']='';
+      $_SESSION['token']='';
+
+      $rules = [
+          'username' => 'required|string|between:1,50',
+          'password'=> 'required|string|between:5,50'
+      ];
+      $customMessages = [
+          'password.required' => 'Debe introducir su contraseña personal',
+          'username.required' => 'Debe introducir su nombre de usuario'
+      ];
+      $this->validate($request, $rules, $customMessages);
+      (string)$username = $request->input('username');
+      (string)$password = $request->input('password');
+      $usuario=DB::select('select * from usuario where usu_nombre = ? and usu_contrasena = ?',[$username, $password]);
+      if ($usuario){
+        //Inicia la sesion del usuario y guarda los datos que no son delicados
+        $_SESSION['Middleware'] = true;
+        $_SESSION['id']=$usuario[0]->usu_id;
+        $_SESSION['nombre']=$usuario[0]->usu_nombre;
+        $_SESSION['tipo']=$usuario[0]->usu_tipo;
+        $_SESSION['token']=$usuario[0]->usu_remember_token;
+        return redirect()->action('ClientsController@abrirSesion')->with('success','Inició sesión exitosamente');
+        //return view('candy-inicio')->with('message','Inició sesión exitosamente');
+      }
+      else{
+        return redirect()->action('ClientsController@SesionFallida')->with('success','Nombre de usuario o contraseña incorrecta');
+      }
+    }
+
+    public function logout(Request $request){
+      @session_start();
+      $_SESSION['Middleware'] = false;
+      $_SESSION['id']='';
+      $_SESSION['nombre']='';
+      $_SESSION['tipo']='';
+      $_SESSION['token']='';
+      Session::flush();
+      return redirect('login');
+
     }
 }

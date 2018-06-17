@@ -5,19 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="/images/candyicon.ico" type="image/x-icon">
-    <title>CandyUCAB - @yield('title')</title>    
+    <title>CandyUCAB - @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="/css/candy-style.css">
 </head>
 <body>
+  <?php
+      @session_start();
+    ?>
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">>
         <a class="navbar-brand justify-content-around" href="candy-index.html"><img id="logo" src="/images/logo2.png" alt="candylogoi"></a>
         <p id="letras">Un dulce mundo</p>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-                  
+
         </button>
-        
+
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul id="header" class="navbar-nav ">
                 <li class="nav-item active">
@@ -36,7 +39,11 @@
                     <a class="nav-link colorletras" href="/registro">Registro</a>
                 </li>
                 <li class="nav-item active ">
+                  @if ($_SESSION['Middleware']==false)
                     <a class="nav-link colorletras" href="/login">Iniciar sesion</a>
+                  @else
+                    <a class="nav-link colorletras" href="logout">Cerrar sesion</a>
+                 @endif
                 </li>
             </ul>
         </div>
@@ -58,7 +65,7 @@
             <a href="#">Terminos y condiciones</a>
         </div>
     </footer>
-    
+
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
         $('.carousel').carousel({

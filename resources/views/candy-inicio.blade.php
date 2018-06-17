@@ -2,6 +2,12 @@
 @section('title','Inicio')
 @section('content')
     <div id="carousel-ejemplo" class="carousel slide m-0" data-ride="carousel">
+      @if (\Session::has('success'))
+        <div class="alert alert-success">
+          <p>{{ \Session::get('success') }}</p>
+        </div><br />
+       @endif
+
         <ol class="carousel-indicators">
 
             <li data-target="#carousel-ejemplo" data-slide-to="0" class="active"></li>
@@ -19,6 +25,7 @@
 
 
             <div class="carousel-item active">
+
                 <center><img class="img-fluid" src="images/1.jpg"></center>
                 <div class="carousel-caption">
                     <h3></h3>
@@ -66,7 +73,7 @@
         </a>
 
     </div>
-    
+
     <div class="bg-dark letras mt-3">
         <p>Alguno de nuestros productos</p>
     </div>
@@ -85,7 +92,7 @@
           <div class="card-body">
                 <h5 id="algunos-titulo" class="card-title">Dulcin</h5>
                 <p id="algunos-letras"class="card-text">Son los caramelos blando más conocidos de Candy UCAB. Son caramelos masticables de forma cuadrada y muy coloridos, asociando cada color a un sabor.</p>
-                <p id="algunos-letras"class="card-text"><small class="text-muted">Sabores a fresa, piña, limón, naranja y cereza.</small></p> 
+                <p id="algunos-letras"class="card-text"><small class="text-muted">Sabores a fresa, piña, limón, naranja y cereza.</small></p>
           </div>
         </div>
         <div class="card border-dark">
@@ -93,7 +100,7 @@
           <div class="card-body">
                 <h5 id="algunos-titulo" class="card-title">Choco Candy</h5>
                 <p id="algunos-letras"class="card-text">Pequeñas pastillas de café con leche a las que se les atribuían efectos positivos para combatir resfriados.</p>
-                <p id="algunos-letras"class="card-text"><small class="text-muted">Sabor tradicional, café expresso, capuccino, fresas con nata, menta, nata y mousse de limón todos con base de chocolate.</small></p> 
+                <p id="algunos-letras"class="card-text"><small class="text-muted">Sabor tradicional, café expresso, capuccino, fresas con nata, menta, nata y mousse de limón todos con base de chocolate.</small></p>
             </div>
         </div>
         <div class="card border-dark">
@@ -101,11 +108,11 @@
             <div class="card-body">
                 <h5 id="algunos-titulo" class="card-title">Blue</h5>
                 <p id="algunos-letras"class="card-text">Caramelo de café elaborado en España al termino de la guerra civil (la receta de CandyUCAB posee un centro e arequipe). </p>
-                <p id="algunos-letras"class="card-text"><small class="text-muted">Sabores a caramelo de piñones, caramelo de cremas, pastillas de café con leche, caramelos   de   cortesía.</small></p> 
+                <p id="algunos-letras"class="card-text"><small class="text-muted">Sabores a caramelo de piñones, caramelo de cremas, pastillas de café con leche, caramelos   de   cortesía.</small></p>
             </div>
         </div>
     </div>
-    
+
     <div class="m-auto bg-dark letras">
         <p>Nuestros productos mas vendidos</p>
     </div>
@@ -126,7 +133,7 @@
         <div class="m-auto col-5 card border-secondary mb-3" style="max-width: 18rem;">
             <div id="algunos-titulo" class="card-header pb-0">Chupetas Rimbonbin</div>
             <div class="card-body text-success">
-                <img class="card-img-top p-2" src="images/6.jpg" alt="Chupetas Rimbonbin">        
+                <img class="card-img-top p-2" src="images/6.jpg" alt="Chupetas Rimbonbin">
             </div>
         </div>
         <div class="m-auto col-5 card border-secondary mb-3" style="max-width: 18rem;">
