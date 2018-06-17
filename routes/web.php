@@ -12,6 +12,7 @@
 */
 Route::resource('Producto','ProductosController');
 Route::resource('registro','ClientsController');
+Route::post('registro/usuario','ClientsController@crearUsuario');
 
 Route::resource('Tienda','TiendasController');
 

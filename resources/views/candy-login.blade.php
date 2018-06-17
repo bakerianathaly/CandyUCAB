@@ -41,6 +41,7 @@
                 <div class="col-7">
                   <!--  {!! Form::submit('Registrarse', ['class' => 'btn btn-default', 'style'=> 'background-color:#F79BEF']) !!} -->
                     {!! Form::submit('login', ['class' => 'btn btn-default', 'style'=> 'background-color:#F79BEF']) !!}
+                    <a href="registro/usuario">{!! Form::submit('Registrarse', ['class' => 'btn btn-default', 'style'=> 'background-color:#F79BEF']) !!}</a>
                     @if (\Session::has('success'))
                       <div class="alert alert-success">
                         <p>{{ \Session::get('success') }}</p>
@@ -52,3 +53,4 @@
     </div>
 {!! Form::close() !!}
 @endsection
+

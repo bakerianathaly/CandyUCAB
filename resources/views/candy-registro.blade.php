@@ -44,30 +44,17 @@
           <div class="form-group">
             <label for="formGroup">Correo</label>
             <input class="form-control" type="text" name="correo" placeholder="Ingrese el correo electronico">
-          </div>
-          <div class="form-group">
-            <label for="validationDefaultUsername">Username</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroupPrepend2">@</span>
-              </div>
-              <input type="text" name="username" class="form-control" id="validationDefaultUsername" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="formGroup">Clave</label>
-            <input class="form-control" type="password" name="clave" placeholder="Ingresar clave para el usuario*" required>
           </div> 
           <div class="form-group">
             <label for="formGroup">Telefono de contacto</label>
             <input class="form-control" type="text" name="telefono" placeholder="02432398765" required>
           </div>
-        </div>
-        <div class="col-lg-4 mr-auto">
           <div class="form-group">
             <label for="formGroup">RIF</label>
             <input class="form-control" type="text" name="rif" placeholder="Ingrese el RIF" required>
           </div>
+        </div>
+        <div class="col-lg-4 mr-auto">
           <div class="form-group">
             <label for="formGroup">Cedula</label>
             <input class="form-control" type="text" name="ci" placeholder="Ingrese la cedula">
@@ -121,19 +108,6 @@
           <div class="form-group">
             <label for="formGroup">Correo</label>
             <input class="form-control" type="text" name="correo" placeholder="candyUCAB@candy.com">
-          </div>
-          <div class="form-group">
-            <label for="validationDefaultUsername">Username</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroupPrepend2">@</span>
-              </div>
-              <input type="text" name="username" class="form-control" id="validationDefaultUsername" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="formGroup">Clave</label>
-            <input class="form-control" type="password" name="clave" placeholder="Ingresar clave para el usuario*">
           </div> 
           <div class="form-group">
             <label for="formGroup">Total capital de la empresa</label>
@@ -151,15 +125,15 @@
             <label for="formGroup">Razon social</label>
             <input class="form-control" type="text" name="razon_social" placeholder="C.A">
           </div>
+          <div class="form-group">
+            <label for="formGroup">Denominacion comercial</label>
+            <input class="form-control" type="text" name="deno_comercial" placeholder="Venta de dulces al mayor">
+          </div>
         </div>
         <div class="col-lg-4 mr-auto">
           <div class="form-group">
             <label for="formGroup">Telefono de contacto</label>
             <input class="form-control" type="text" name="telefono" placeholder="02432398765" required>
-          </div>
-          <div class="form-group">
-            <label for="formGroup">Denominacion comercial</label>
-            <input class="form-control" type="text" name="deno_comercial" placeholder="Venta de dulces al mayor">
           </div>
           <div class="form-group">
             <label for="formGroup">Tienda</label>
