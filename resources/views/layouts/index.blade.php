@@ -12,6 +12,9 @@
 <body>
   <?php
       @session_start();
+      if($_SESSION == NULL){
+          $_SESSION['Middleware'] = false;
+      }
     ?>
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">>
         <a class="navbar-brand justify-content-around" href="candy-index.html"><img id="logo" src="/images/logo2.png" alt="candylogoi"></a>
