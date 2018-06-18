@@ -156,7 +156,7 @@ class ClientsController extends Controller
         $rules = [
             'correo' => 'required|email|between:1,50',
             'username'=> 'required|string|between:1,50',
-            'clave'=> 'required|string|between:1,50'
+            'clave'=> 'required|string|between:5,50'
         ];
         $customMessages = [
             'correo.required' => 'Debe introducir el correo del cliente registrado',
@@ -221,7 +221,7 @@ class ClientsController extends Controller
             'correo' => 'nullable|string|between:1,50',
             'tienda' => 'nullable|number',
             'telefono'=>'nullable|numeric',
-            'clave'=>'nullable|string|between:1,50',
+            'clave'=>'nullable|string|between:5,50',
             'contacto'=>'nullable|string|between:1,50'
         ];
         $this->validate($request, $rules);
