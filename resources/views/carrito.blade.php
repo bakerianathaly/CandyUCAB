@@ -39,7 +39,7 @@
      <tbody>
       @foreach($productos as $producto)
       <tr>
-           {!! Form::open(array('action' => array('PresupuestoController@update', Session::get($carritoid)))) !!}
+           {!! Form::open(array('action' => array('PresupuestoController@update', $_SESSION['carritoid']))) !!}
          {{csrf_field()}}
          <input name="_method" type="hidden" value="PATCH">
          <td>{{$producto->pro_ruta_imagen}}</td>
@@ -50,7 +50,7 @@
              <input name="cantidad" type="hidden" value="{{$producto->pre_cantidad}}">
              <input name="pre_id" type="hidden" value="{{$producto->pre_id}}">
          </td>
-         <td><a href="{{{{action('PresupuestosController@delete',Session::get($carritoid),$producto->fkproducto)}}}}" class="btn btn-warning">Eliminar</a><td>
+         <td><a href="{{{{action('PresupuestosController@delete',$_SESSION['carritoid'],$producto->fkproducto)}}}}" class="btn btn-warning">Eliminar</a><td>
          <input name="_method" type="hidden" value="DELETE">
          <td>{!! Form::submit('Actualizar', ['class' => 'btn', 'style'=> 'background-color:#F79BEF;']) !!}<td>
       </tr>

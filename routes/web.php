@@ -26,7 +26,7 @@ Route::get('Carrito/{carritoid}/{id}','PresupuestosController@add');
  
 Route::delete('Carrito/{carritoid}/{id}','PresupuestosController@delete');
  
-Route::update('Carrito/{carritoid}','PresupuestosController@update');
+Route::post('Carrito/{carritoid}','PresupuestosController@update');
  
 Route::get('Tiendas/lista','TiendasController@tiendas');
  

@@ -12,9 +12,10 @@
 <body>
   <?php
       @session_start();
-      if($_SESSION == NULL)
+      if($_SESSION == NULL){
       $_SESSION['Middleware']=false;
-  
+      $_SESSION['carritoid']='';
+      }
     ?>
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">>
         <a class="navbar-brand justify-content-around" href="candy-index.html"><img id="logo" src="/images/logo2.png" alt="candylogoi"></a>
@@ -33,20 +34,20 @@
                     <a class="nav-link colorletras" href="/Producto">Producto</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link colorletras" href="/Tienda">Tiendas</a>
+                    <a class="nav-link colorletras" href="/Tiendas/lista">Tiendas</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link colorletras" href="/promociones">Promociones</a>
                 </li>
-                 @if($_SESSION['id']==NULL)
+                @if( $_SESSION['Middleware']==false)
                  <li class="nav-item active">
                  <a class="nav-link colorletras" href="/login">Carrito</a>
                  </li>
-                @else
+                 @else
                  <li class="nav-item active">
-                 <a class="nav-link colorletras" href="{{action('Carrito/create')}}">Carrito</a>
+                 <a class="nav-link colorletras" href="{{action('PresupuestosController@create',$_SESSION['id'])}}">Carrito</a>
                  </li>
-                @endif
+                 @endif
                 <li class="nav-item active">
                     <a class="nav-link colorletras" href="/registro">Registro</a>
                 </li>

@@ -14,18 +14,18 @@
           <div class="card-body">
                 <h1 id="algunos-titulo" class="card-title">{{$producto->pro_nombre}}</h1>
                 <p id="algunos-letras"class="card-text">{{$producto->pro_descripcion}}}</p>
-                @if(\Session::has('carritoid'))
-                <td><a href="{{action('PresupuestosController@add', Session::get('carritoid'), Session::get('userid'),0)}}" class="btn centrar_boton">Agregar al carrito</a></td>
+                @if($_SESSION['carritoid']!='' && $_SESSION['Middleware']==true)
+                <td><a href="{{action('PresupuestosController@add',$_SESSION['carritoid'],$producto->pro_id,0)}}" class="btn centrar_boton">Agregar al carrito</a></td>
                 @endif
                 {{-- <p id="algunos-letras"class="card-text"><small class="text-muted">{{$sabor->sab_tipo}}}</small></p> --}}
           </div>
         </div>
         @endforeach
     </div>
-     @if(\Session::has('carritoid'))
-     <td><a href="{{action('PresupuestosController@index',Session::get('carritoid'))}}" class="btn centrar_boton">Ir al carrito</a></td>
-     @elseif(\Session::has('userid'))
-     <td><a href="{{action('PresupuestosController@create',Session::get('userid'))}}" class="btn centrar_boton">Crear carrito</a></td>
+     @if($_SESSION['carritoid']!='')
+     <td><a href="{{action('PresupuestosController@index',$_SESSION['carritoid'])}}" class="btn centrar_boton">Ir al carrito</a></td>
+     @elseif($_SESSION['Middleware']==true)
+     <td><a href="{{action('PresupuestosController@create',$_SESSION['id'])}}" class="btn centrar_boton">Crear carrito</a></td>
      @endif
      
      @else

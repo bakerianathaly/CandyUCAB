@@ -39,12 +39,13 @@ class PresupuestosController extends Controller
      */
     public function create()
     {   
+          @session_start();
           if(Session::has('userid')){
           $id = Session::get($useid);
           $current = Carbon::now();
           DB::insert('insert into presupuesto (pre_descripcion, pre_fcreacion, pre_montototal,fkusuario) values (?, ?, ?, ?)', ['carrito', $current = new Carbon(),0,$id]);
           $carritoid = DB::select('select pre_id from presupuesto where fkusuario = ?', [$id]);
-          Session::push('carritoid', $carritoid);
+          $_SESSION['carritoid']=$carritoid;
           return redirect()->action('PresupuestosController@index',$carritoid);
           }else{
               return redirect('/login');
