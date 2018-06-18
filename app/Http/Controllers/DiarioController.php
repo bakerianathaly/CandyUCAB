@@ -3,6 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Session;
+use Redirect;
+use Validator;
 
 class DiarioController extends Controller
 {
@@ -13,7 +20,7 @@ class DiarioController extends Controller
      */
     public function index()
     {
-        //
+        return view('candy-promociones');
     }
 
     /**
@@ -21,9 +28,21 @@ class DiarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create(){   
+        /* if ($_SESSION['Middleware'] == true){
+            if ($_SESSION['tipo']=='Empleado'){
+                $productos=DB::Select(DB::raw("SELECT pro_id, pro_nombre, pro_descripcion, pro_ruta_imagen from Producto"));
+                return view ('crear-promociones', compact('productos'));
+            }
+            else {
+                return view('candy-promociones');
+            }
+        }
+        else {
+            return view('candy-login');
+        } */
+        $productos=DB::Select(DB::raw("SELECT pro_id, pro_nombre, pro_descripcion, pro_ruta_imagen from Producto"));
+        return view ('crear-promociones', compact('productos'));
     }
 
     /**

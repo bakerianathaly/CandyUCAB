@@ -39,7 +39,13 @@
                     <a class="nav-link colorletras" href="/promociones">Promociones</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link colorletras" href="/registro">Registro</a>
+                    @if ($_SESSION['Middleware'] == true)
+                        @if ($_SESSION['tipo']=='Empleado')
+                            <a class="nav-link colorletras" href="/registro">Registro</a>
+                        @endif
+                    @else
+                        <a class="nav-link colorletras" href="/registro/create">Registro</a>
+                    @endif
                 </li>
                 <li class="nav-item active ">
                   @if ($_SESSION['Middleware']==false)
