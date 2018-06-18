@@ -1,14 +1,14 @@
 <?php
-
+ 
 namespace App\Http\Controllers;
-
+ 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Session;
 use Redirect;
 use Validator;
-
+ 
 class TiendasController extends Controller
 {
     /**
@@ -28,6 +28,7 @@ class TiendasController extends Controller
         return view('listar-tiendas', compact('tiendas','lugar'));
         //return $tiendas;
     }
+ 
 
     /**
      * Show the form for creating a new resource.
@@ -135,5 +136,46 @@ class TiendasController extends Controller
          DB::update('update Cliente set fktienda = 41 where fktienda = ?', [$id]);
          DB::delete('delete from public.Tienda where Tie_id = :id ', ['id'=>$id]);
         return redirect()->action('TiendasController@index')->with('success','La tienda fue eliminada exitosamente');
+    }
+}
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function inventario($id){    
+         $inventarios = DB::select('select inv_id from inventario where fktienda = ?', [$id]);
+         if($inventarios){
+         $inventario = $inventarios[0];
+         $fkproductos = DB::select('select fkproducto from pro_inv where fkinventario = ?', [$inventario->inv_id]);
+         $productos = array();
+         foreach($fkproductos as $fkproducto){
+             $pro = DB::select('select * from producto where pro_id = ?', [$fkproducto->fkproducto]);
+             $prod= $pro[0];
+             array_push($productos, $prod);
+         }
+         Session::flash('producto',$productos);
+         return view('Tienda-productos');
+        }else{
+         return view('Tienda-productos');
+        }
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function tiendas()
+    {
+         $tiendas = DB::select('select * from tienda');
+         foreach ($tiendas as $tienda){
+             $lug= DB::select('select lug_nombre from lugar where lug_id = ?', [$tienda->fklugar]);
+             $lugar =  $lug[0];
+             $tienda->lug_nombre = $lugar->lug_nombre;
+         }
+ 
+        return view('Tiendas',compact('tiendas'));
     }
 }

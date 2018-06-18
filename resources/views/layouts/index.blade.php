@@ -12,6 +12,9 @@
 <body>
   <?php
       @session_start();
+      if($_SESSION == NULL)
+      $_SESSION['Middleware']=false;
+  
     ?>
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">>
         <a class="navbar-brand justify-content-around" href="candy-index.html"><img id="logo" src="/images/logo2.png" alt="candylogoi"></a>
@@ -35,6 +38,15 @@
                 <li class="nav-item active">
                     <a class="nav-link colorletras" href="/promociones">Promociones</a>
                 </li>
+                 @if($_SESSION['id']==NULL)
+                 <li class="nav-item active">
+                 <a class="nav-link colorletras" href="/login">Carrito</a>
+                 </li>
+                @else
+                 <li class="nav-item active">
+                 <a class="nav-link colorletras" href="{{action('Carrito/create')}}">Carrito</a>
+                 </li>
+                @endif
                 <li class="nav-item active">
                     <a class="nav-link colorletras" href="/registro">Registro</a>
                 </li>
