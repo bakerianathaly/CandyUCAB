@@ -19,9 +19,12 @@ class DiarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $descuentos=DB::select('select fkproducto from Descuento');
-        //return $descuentos;
-        return view('candy-promociones',compact('descuentos'));
+        $descuentos=DB::select('select fkproducto, Des_cantidad, Des_new_precio from Descuento');
+        $diario=DB::select('select Dia_fvencimiento, Dia_femision from Diario order by Dia_fvencimiento desc');
+        $date=date(now());
+        $date=date("d-m-Y",strtotime($date));
+        $productos=DB::Select(DB::raw("SELECT pro_ruta_imagen, pro_descripcion, pro_id, pro_nombre from Producto"));
+        return view('candy-promociones',compact('descuentos','diario','date','productos'));
     }
 
     /**

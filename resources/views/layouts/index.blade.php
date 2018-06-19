@@ -76,8 +76,6 @@
     </footer>
 
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/moment.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script>
         $('.carousel').carousel({
             interval:2300,

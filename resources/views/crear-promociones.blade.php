@@ -31,7 +31,7 @@
                 <label for="ffinal">Fecha final del Diario</label>
                 <input type="date" class="form-control" name="ffinal" id="ffinal">
             </div>
-            <div class="form-group" id="producto">
+            <div class="form-group col" id="producto">
                 <label for="formGroup">Producto</label>
                 <select name= "producto[]" id="producto" class="form-control" required>
                     <option value="">Seleccione un Producto</option>
@@ -39,7 +39,7 @@
                         <option value="{{$producto->pro_id}}">{{$producto->pro_nombre}}</option>
                     @endforeach
                 </select> </br>
-                <div class="form-group">
+                <div class="form-group ">
                     <label for="formGroup">Descuento</label>
                     <input class="form-control" type="number" min="2" max="99" name="descuento[]" placeholder="Ingresar el descuento">
                 </div>
@@ -48,7 +48,7 @@
                 <button type="button" class="btn btn-default addButton" onclick="producto_dinamico();" > Agregar otro producto<i class="fa fa-plus"></i> </button>
             </span>
         </div>
-        <div class="trans text-center">
+        <div class="trans text-center mt-3">
             {!! Form::submit('Crear Promociones', ['class' => 'btn btn-default', 'style'=> 'background-color:#F79BEF']) !!}
         </div>
         {!! Form::close() !!}
