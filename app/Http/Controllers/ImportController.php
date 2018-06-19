@@ -14,7 +14,7 @@ class ImportController extends Controller
     if(is_file('Asistencias.xlsx')){
       $Excel = Excel::load('Asistencias.xlsx', function($reader) {
           $reader->each(function($sheet) {
-            DB::insert('Insert into Asistencia (fkempleado, asi_fentrada, asi_fsalida) values(?,?,?)', [$sheet->cedula,$sheet->fecha_hora_entrada,$sheet->fecha_hora_salida]);
+            DB::insert('Insert into Asistencia (fkempleado, asi_fentrada, asi_fsalida) values((select emp_id from empleado where emp_ci=?),?,?)', [$sheet->cedula,$sheet->fecha_hora_entrada,$sheet->fecha_hora_salida]);
           });
      });
      if($Excel)
