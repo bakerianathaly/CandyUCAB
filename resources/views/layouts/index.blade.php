@@ -36,7 +36,7 @@
                     <a class="nav-link colorletras" href="/Tienda">Tiendas</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link colorletras" href="/promociones">Promociones</a>
+                    <a class="nav-link colorletras" href="/DiarioDulce">Promociones</a>
                 </li>
                 <li class="nav-item active">
                     @if ($_SESSION['Middleware'] == true)
@@ -76,6 +76,8 @@
     </footer>
 
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/moment.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script>
         $('.carousel').carousel({
             interval:2300,

@@ -18,9 +18,10 @@ class DiarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('candy-promociones');
+    public function index(){
+        $descuentos=DB::select('select fkproducto from Descuento');
+        //return $descuentos;
+        return view('candy-promociones',compact('descuentos'));
     }
 
     /**
@@ -29,7 +30,8 @@ class DiarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){   
-        /* if ($_SESSION['Middleware'] == true){
+        /* @session_start();
+        if ($_SESSION['Middleware'] == true){
             if ($_SESSION['tipo']=='Empleado'){
                 $productos=DB::Select(DB::raw("SELECT pro_id, pro_nombre, pro_descripcion, pro_ruta_imagen from Producto"));
                 return view ('crear-promociones', compact('productos'));
@@ -51,9 +53,46 @@ class DiarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        $rules = [
+            'finicio' => 'required|date',
+            'ffinal'=> 'required|date',
+            'producto'=> 'required|array| between: 1,100000',
+            'descuento'=> 'required|array| between: 1,100000'
+        ];
+        $customMessages = [
+            'finicio.required' => 'Debe introducir la fecha de creacion del Diario',
+            'ffinal.required' => 'Debe introducir la fecha de vencimiento del Diario',
+            'producto.required' => 'Debe introducir al menos un producto',
+            'descuento.required' => 'Debe introducir al menos un descueto'
+        ];
+
+        $this->validate($request, $rules, $customMessages);
+        $finicio=$request->input('finicio');
+        $finicio=date("d-m-Y",strtotime($finicio)); 
+        $ffinal=$request->input('ffinal');
+        $ffinal=date("d-m-Y",strtotime($ffinal));
+        $producto=$request->input('producto');
+        $descuento=$request->input('descuento');
+        DB::insert('Insert into Diario (Dia_femision, Dia_fvencimiento) values (?,?)',
+        [$finicio,$ffinal]);
+        if ($producto[0] != ' ' && $descuento[0] != ' '){
+            $i=0;
+            $x=count($producto); //Cuenta cuantas posiciones hay en el arreglo
+            $id = DB::select("SELECT Dia_id from Diario order by Dia_id desc limit 1");
+            
+            while($i< $x){
+                $precio=DB::select("SELECT Pro_precio from Producto where Pro_id = ?",[$producto[$i]]);
+                $precio= $precio[0]->pro_precio - (($precio[0]->pro_precio * $descuento[$i])/100);
+                DB::insert('Insert into Descuento (fkproducto, fkdiario, Des_finicio, Des_ffinal, Des_cantidad, Des_new_precio) values (?,?,?,?,?,?)',
+                [$producto[$i],$id[0]->dia_id, $finicio,$ffinal, $descuento[$i], $precio]);
+                $i=$i+1;
+            }
+            return view ('candy-inicio');
+        }
+        else {
+            return view('crear-promociones');
+        }
     }
 
     /**
