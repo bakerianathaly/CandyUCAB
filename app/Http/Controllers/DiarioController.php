@@ -112,8 +112,9 @@ class DiarioController extends Controller
     public function edit($id){
         $diario=DB::Select('select Dia_fvencimiento from Diario where Dia_id = :id',['id'=>$id]);
         $productos=DB::Select(DB::raw("SELECT pro_ruta_imagen, pro_descripcion, pro_id, pro_nombre from Producto"));
-        $descuento=DB::select('select * from descuento');
-        return view('editar-diario', compact('diario','productos','descuento','id'));
+        $descuento=DB::select('select * from descuento where fkdiario = :id',['id'=>$id]);
+        $y=count($descuento);
+        return view('editar-diario', compact('diario','productos','descuento','id','y'));
     }
 
     /**
@@ -135,6 +136,48 @@ class DiarioController extends Controller
         $ffinal=date("d-m-Y",strtotime($ffinal));
         $producto=$request->input('producto');
         $descuento=$request->input('descuento');
+        $y=$request->input('des');
+    
+        DB::update('update Diario set dia_fvencimiento =? where Dia_id = ?',[$ffinal,$id]);
+        $finicio= DB::select('select Dia_femision from Diario where Dia_id= :id',['id'=>$id]);
+        if ($producto[0] != ' ' && $descuento[0] != ' '){
+            $i=0;
+            $x=count($producto); //Cuenta cuantas posiciones hay en el arreglo
+            if ($x == $y){
+                while($i< $x){
+                    $precio=DB::select("SELECT Pro_precio from Producto where Pro_id = ?",[$producto[$i]]);
+                    if ($precio != null){
+                        $precio= $precio[0]->pro_precio - (($precio[0]->pro_precio * $descuento[$i])/100);
+                    }
+                    DB::update('update Descuento set fkproducto=?, Des_cantidad=?, Des_new_precio=?, fkDiario=?  where fkDiario = ? and fkProducto = ?',
+                    [$producto[$i],$descuento[$i], $precio,$id,$id,$producto[$i]]);
+                    $i=$i+1;
+                }
+            }
+            else {
+                while($i< $y){
+                    $precio=DB::select("SELECT Pro_precio from Producto where Pro_id = ?",[$producto[$i]]);
+                    if ($precio != null){
+                        $precio= $precio[0]->pro_precio - (($precio[0]->pro_precio * $descuento[$i])/100);
+                    }
+                    DB::update('update Descuento set fkproducto=?, Des_cantidad=?, Des_new_precio=?, fkDiario=?  where fkDiario = ? and fkProducto = ?',
+                    [$producto[$i],$descuento[$i], $precio,$id,$id,$producto[$i]]);
+                    $i=$i+1;
+                }
+                while($i<$x){
+                    $precio=DB::select("SELECT Pro_precio from Producto where Pro_id = ?",[$producto[$i]]);
+                    $precio= $precio[0]->pro_precio - (($precio[0]->pro_precio * $descuento[$i])/100);
+                    DB::insert('Insert into Descuento (fkproducto, fkdiario, Des_finicio, Des_ffinal, Des_cantidad, Des_new_precio) values (?,?,?,?,?,?)',
+                    [$producto[$i],$id, $finicio[0]->dia_femision, $ffinal, $descuento[$i], $precio]);
+                    $i=$i+1;
+                }
+            }
+            return redirect('/DiarioDulce')->with('success','El diario fue editado con exito');
+        }
+        else {
+            return view('crear-promociones');
+        }
+        
     }
 
     /**
@@ -146,6 +189,6 @@ class DiarioController extends Controller
     public function destroy($id){
         DB::delete('delete from descuento where fkDiario = :id', ['id'=>$id]);
         DB::delete('delete from Diario where Dia_id = :id', ['id'=>$id]);
-        return redirect('/')->with('success','El cliente fue eliminado');
+        return redirect('/')->with('success','El diario fue eliminado');
     }
 }

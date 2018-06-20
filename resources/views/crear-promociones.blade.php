@@ -78,7 +78,7 @@
             var finicio = $(this).val();
             var time = moment(finicio, 'YYYY-MM-DD', true);
             if (time.isValid()) {
-                var ffinal = time.add(20, 'd');
+                var ffinal = time.add(10, 'd');
                 $('#ffinal').val(ffinal.format('YYYY-MM-DD'));
             }
         });
