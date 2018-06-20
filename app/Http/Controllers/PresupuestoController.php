@@ -188,6 +188,7 @@ class PresupuestosController extends Controller
           }
           DB::update('update inventario set inv_cantidad = inv_cantidad-?,inv_precio=inv_precio-? where fktienda = ?', [$cantidadTotal,$precioTotal,$_SESSION['tiendaid']]);
           DB::insert('insert into pedido_tienda (ped_descripcion, ped_fpedido,fktienda,fkpedido) values (?, ?,?,?)', [$pedido[0]->ped_descripcion, $pedido[0]->ped_fecha,$_SESSION['tiendaid'],$pedido[0]->ped_id]);
+          DB::insert('insert into sta_ped (sta_finicial , fkpedido, fkstatus) values (?, ?,?)', [$fecha,$pedido[0]->ped_id,1]);
           Session::flash('productos', $productos);
           Session::flash('pedido', $pedido);
           return redirect()->action('PresupuestosController@factura');
