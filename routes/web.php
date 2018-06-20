@@ -18,6 +18,8 @@ Route::post('registro/usuario','ClientsController@crearUsuario');
 
 Route::resource('perfil','PerfilController');
 
+Route::post('perfil/MP','PerfilController@clienteMP');
+
 Route::resource('Tiendas/admin','TiendasController');
  
 Route::get('Carrito/create/{id}','PresupuestosController@create');
