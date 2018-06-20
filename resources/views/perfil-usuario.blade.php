@@ -10,18 +10,18 @@
     </div>
 
     <div class="container fluid">
-        <div class="card mx-auto" >
+        <div class="card mx-auto ">
             <h5 class="card-header text-center">Informacion del cliente con usuario: {{$_SESSION['nombre']}}</h5>
-            <div class="card-body">
+            <div class="card-body text-center">
                 <h5 class="card-title">{{$cli_info[0]->cli_nombre}} {{$cli_info[0]->cli_apellido}}</h5>
                 <h5 class="card-body">{{$cli_info[0]->cli_ci}}</h5>
-                <h5 class="card-body">{{$cli_info[0]->cli_correo}}</h5>
+                <h5 class="card-footer">{{$cli_info[0]->cli_correo}}</h5>
                 @if($cli_info[0]->cli_numcarnet == null)
                     <a href="/perfil/{{$cli_info[0]->cli_id}}" class="btn btn-primary">Generar Carnet</a>
-                    <a href="/perfil/create" class="btn btn-primary">Agregar metodo de pago</a>
+                    <a href="/perfil/create" class="btn btn-dark">Agregar metodo de pago</a>
                 @else
                     <a href="/perfil/create" class="btn btn-dark">Agregar metodo de pago</a>
-                    <a href="/perfil/{{$cli_info[0]->cli_id}}" class="btn btn-primary">Generar Carnet</a>
+                    <a href="/perfil/{{$cli_info[0]->cli_id}}" class="btn btn-primary">Mostrar Carnet</a>
                 @endif
             </div>
         </div>
