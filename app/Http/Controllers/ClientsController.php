@@ -277,10 +277,7 @@ class ClientsController extends Controller
       $_SESSION['tipo']='';
       $_SESSION['token']='';
       $_SESSION['carritoid']='';
-<<<<<<< HEAD
       $_SESSION['tiendaid']='';
-=======
->>>>>>> Carrito
 
       $rules = [
           'username' => 'required|string|between:1,50',
@@ -318,10 +315,7 @@ class ClientsController extends Controller
       $_SESSION['tipo']='';
       $_SESSION['token']='';
       $_SESSION['carritoid']='';
-<<<<<<< HEAD
       $_SESSION['tiendaid']='';
-=======
->>>>>>> Carrito
       Session::flush();
       return redirect('login');
 
