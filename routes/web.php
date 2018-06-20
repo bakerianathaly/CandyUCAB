@@ -16,6 +16,7 @@ Route::resource('registro','ClientsController');
 
 Route::post('registro/usuario','ClientsController@crearUsuario');
 
+Route::resource('perfil','PerfilController');
 
 Route::resource('Tiendas/admin','TiendasController');
  

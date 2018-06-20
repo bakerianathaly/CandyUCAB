@@ -92,7 +92,7 @@
             <a href="#">Terminos y condiciones</a>
         </div>
     </footer>
-
+    <script src="{{asset('jquery/jquery-2.1.1.min.js')}}"> </script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
         $('.carousel').carousel({
