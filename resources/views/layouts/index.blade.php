@@ -39,10 +39,16 @@
                     <a class="nav-link colorletras" href="/Tienda">Tiendas</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link colorletras" href="/promociones">Promociones</a>
+                    <a class="nav-link colorletras" href="/DiarioDulce">Diario dulce</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link colorletras" href="/registro">Registro</a>
+                    @if ($_SESSION['Middleware'] == true)
+                        @if ($_SESSION['tipo']=='Empleado')
+                            <a class="nav-link colorletras" href="/registro">Registro</a>
+                        @endif
+                    @else
+                        <a class="nav-link colorletras" href="/registro/create">Registro</a>
+                    @endif
                 </li>
                 <li class="nav-item active ">
                   @if ($_SESSION['Middleware']==false)

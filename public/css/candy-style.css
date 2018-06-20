@@ -126,6 +126,13 @@ footer {
     font-size: 35px;    
     margin-top: 10%;
 }
+#login-letras2{
+    text-align: center;
+    color: black;
+    font-family: 'Shadows Into Light Two', cursive;
+    font-size: 30px;    
+    margin-top: 7%;
+}
 .input-group-addon div{
     width: 2.6rem;
 }
@@ -227,4 +234,13 @@ footer a {
 }
 .centrar_boton a:link{
     color:#100;
+}
+.a{
+    margin-top: 18%;
+}
+.b{
+    font-size:  30px!important;
+}
+.c{
+    font-size: 20px!important;
 }

@@ -13,7 +13,7 @@
 Route::resource('Producto','ProductosController');
 Route::resource('registro','ClientsController');
 Route::post('registro/usuario','ClientsController@crearUsuario');
-
+Route::resource('DiarioDulce','DiarioController');
 Route::resource('Tienda','TiendasController');
 
 Route::get('/', function () {
@@ -30,5 +30,4 @@ Route::post('login','ClientsController@login');
 //Route::post('login','Auth\LoginController@authenticate');
 Route::get('SesionFallida','ClientsController@SesionFallida');
 Route::get('iniciarSesion','ClientsController@abrirSesion');
-
 Route::get('ImportarExcel', 'ImportController@import');
