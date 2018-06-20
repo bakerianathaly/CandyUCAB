@@ -14,8 +14,8 @@
      <?php
       @session_start();
       if($_SESSION == NULL){
-      $_SESSION['Middleware']=false;
-      $_SESSION['carritoid']='';
+        $_SESSION['Middleware']=false;
+        $_SESSION['carritoid']='';
       }
     ?>
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">>
@@ -65,13 +65,19 @@
                         <a class="nav-link colorletras" href="/registro/create">Registro</a>
                     @endif
                 </li>
+                <li class="nav-item active">
+                    @if ($_SESSION['Middleware'] == true)
+                        <a class="nav-link colorletras" href="/perfil">Perfil</a>
+                    @endif
+                </li>
                 <li class="nav-item active ">
                   @if ($_SESSION['Middleware']==false)
-                    <a class="nav-link colorletras" href="/login">Iniciar sesion</a>
+                    <a class="nav-link colorletras" href="/login">Login</a>
                   @else
-                    <a class="nav-link colorletras" href="/logout">Cerrar sesion</a>
+                    <a class="nav-link colorletras" href="/logout">Logout</a>
                  @endif
                 </li>
+                
             </ul>
         </div>
     </nav>
@@ -92,7 +98,7 @@
             <a href="#">Terminos y condiciones</a>
         </div>
     </footer>
-
+    <script src="{{asset('jquery/jquery-2.1.1.min.js')}}"> </script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
         $('.carousel').carousel({
