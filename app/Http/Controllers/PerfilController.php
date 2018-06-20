@@ -36,9 +36,15 @@ class PerfilController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create(){   
+        @session_start();
+        if ($_SESSION['Middleware'] == true){
+            $cli_id=DB::select('select fkCliente from Usuario where Usu_id = :id',['id'=>$_SESSION['id']]); 
+            $tipo='N';
+            $cli_info=DB::select('select cli_nombre, cli_apellido, cli_ci, cli_correo, fktienda,cli_numcarnet, cli_id from Cliente where cli_tipo= ? and cli_id= ?',[$tipo, $cli_id[0]->fkcliente]);
+            $pago=DB::select('select met_nombre_titular,met_num_tarjeta, met_fvencimiento, met_tipo from Metodo_pago where fkcliente = :id',['id'=>$cli_id[0]->fkcliente]);
+            return view('perfil-pagos', compact('cli_info','pago','cli_id'));
+        }
     }
 
     /**
@@ -93,8 +99,7 @@ class PerfilController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id){
         //
     }
 
