@@ -30,5 +30,4 @@ Route::post('login','ClientsController@login');
 //Route::post('login','Auth\LoginController@authenticate');
 Route::get('SesionFallida','ClientsController@SesionFallida');
 Route::get('iniciarSesion','ClientsController@abrirSesion');
-
 Route::get('ImportarExcel', 'ImportController@import');
