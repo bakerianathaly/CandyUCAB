@@ -36,7 +36,11 @@ Route::get('Pedido/exit','PresupuestosController@borrarCarrito');
 
 Route::post('Carrito/actualizar/{id}','PresupuestosController@actualizar');
  
+<<<<<<< HEAD
 // Route::update('Carrito/{carritoid}','PresupuestosController@update');
+=======
+Route::post('Carrito/{carritoid}','PresupuestosController@update');
+>>>>>>> Carrito
  
 Route::get('Tiendas/lista','TiendasController@tiendas');
  

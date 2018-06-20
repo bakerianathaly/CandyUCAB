@@ -277,7 +277,10 @@ class ClientsController extends Controller
       $_SESSION['tipo']='';
       $_SESSION['token']='';
       $_SESSION['carritoid']='';
+<<<<<<< HEAD
       $_SESSION['tiendaid']='';
+=======
+>>>>>>> Carrito
 
       $rules = [
           'username' => 'required|string|between:1,50',
@@ -298,6 +301,7 @@ class ClientsController extends Controller
         $_SESSION['nombre']=$usuario[0]->usu_nombre;
         $_SESSION['tipo']=$usuario[0]->usu_tipo;
         $_SESSION['token']=$usuario[0]->usu_remember_token;
+        $_SESSION['carritoid']='';
         return redirect()->action('ClientsController@abrirSesion')->with('success','Inició sesión exitosamente');
         //return view('candy-inicio')->with('message','Inició sesión exitosamente');
       }
@@ -314,7 +318,10 @@ class ClientsController extends Controller
       $_SESSION['tipo']='';
       $_SESSION['token']='';
       $_SESSION['carritoid']='';
+<<<<<<< HEAD
       $_SESSION['tiendaid']='';
+=======
+>>>>>>> Carrito
       Session::flush();
       return redirect('login');
 

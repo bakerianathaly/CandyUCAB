@@ -129,14 +129,22 @@ class TiendasController extends Controller
          DB::delete('delete from public.Tienda where Tie_id = :id ', ['id'=>$id]);
         return redirect()->action('TiendasController@index')->with('success','La tienda fue eliminada exitosamente');
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> Carrito
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function inventario($id){    
         @session_start();
+=======
+     public function inventario($id){    
+>>>>>>> Carrito
          $inventarios = DB::select('select inv_id from inventario where fktienda = ?', [$id]);
          if($inventarios){
          $inventario = $inventarios[0];
@@ -160,8 +168,13 @@ class TiendasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function tiendas()
+<<<<<<< HEAD
     {
         @session_start();
+=======
+    {    
+         @session_start();
+>>>>>>> Carrito
          $tiendas = DB::select('select * from tienda');
          foreach ($tiendas as $tienda){
              $lug= DB::select('select lug_nombre from lugar where lug_id = ?', [$tienda->fklugar]);
