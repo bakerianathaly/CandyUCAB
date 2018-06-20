@@ -224,6 +224,28 @@ class PresupuestosController extends Controller
               return redirect('/login');
           }
     }
+      public function actualizarStatus(Request $request,$tiendaid,$pedidoid,$statusid)
+    {   
+           @session_start();
+           $rules = [
+           'statusid' => 'required|numeric|between:1,5',
+           ];
+            $customMessages = [
+              'status.required' => 'Debe elegir una tienda',
+           ];
+            $this->validate($request, $rules, $customMessages);
+            $nuevoStatus= $request->input('statusid');
+            if($statusid==$nuevoStatus){
+             return redirect()->action('TiendasController@listarPedidos',$tiendaid);
+            }else{
+                $mytime = Carbon::now();
+                $fecha =date("d-m-Y",strtotime($mytime->toDateTimeString()));
+                $statusactual = DB::select('select S.sta_id,SP.sta_id as status_producto from pedido P,sta_ped SP,status S where P.ped_id = ? and P.ped_id = SP.fkpedido and S.sta_id = SP.fkstatus order by SP.sta_id DESC limit 1', [$pedidoid]);
+                DB::update('update sta_ped set sta_ffinal = ? where sta_id = ?', [$fecha,$statusactual[0]->status_producto]);
+                DB::insert('insert into sta_ped (sta_finicial , fkpedido, fkstatus) values (?, ?,?)', [$fecha,$pedidoid, $nuevoStatus]);
+                return redirect()->action('TiendasController@listarPedidos',$tiendaid);
+            }
+    }
 
      
 }

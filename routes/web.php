@@ -41,6 +41,8 @@ Route::post('Carrito/actualizar/{id}','PresupuestosController@actualizar');
  
 Route::get('Tiendas/lista','TiendasController@tiendas');
 
+Route::post('Pedido/actualizar/{tiendaid}/{pedidoid}/{status_id}','PresupuestosController@actualizarStatus');
+
 Route::get('Pedidos/admin/tienda/{id}','TiendasController@listarPedidos');
  
 Route::get('Tiendas/lista/{id}','TiendasController@inventario'); 
