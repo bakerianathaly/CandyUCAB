@@ -14,28 +14,15 @@
           <div class="card-body">
                 <h1 id="algunos-titulo" class="card-title">{{$producto->pro_nombre}}</h1>
                 <p id="algunos-letras"class="card-text">{{$producto->pro_descripcion}}}</p>
-<<<<<<< HEAD
                 @if($_SESSION['carritoid']!=='')
                 <td><a href="/Carrito/add/{{$_SESSION['carritoid']}}/{{$producto->pro_id}}/0" class="btn" style="background-color:#F79BEF; color:black;">Agregar al carrito</a></td>
-=======
-                @if($_SESSION['carritoid']!='' && $_SESSION['Middleware']==true)
-                <td><a href="{{action('PresupuestosController@add',$_SESSION['carritoid'],$producto->pro_id,0)}}" class="btn centrar_boton">Agregar al carrito</a></td>
->>>>>>> Carrito
                 @endif
                 {{-- <p id="algunos-letras"class="card-text"><small class="text-muted">{{$sabor->sab_tipo}}}</small></p> --}}
           </div>
         </div>
         @endforeach
     </div>
-<<<<<<< HEAD
    
-=======
-     @if($_SESSION['carritoid']!='')
-     <td><a href="{{action('PresupuestosController@index',$_SESSION['carritoid'])}}" class="btn centrar_boton">Ir al carrito</a></td>
-     @elseif($_SESSION['Middleware']==true)
-     <td><a href="{{action('PresupuestosController@create',$_SESSION['id'])}}" class="btn centrar_boton">Crear carrito</a></td>
-     @endif
->>>>>>> Carrito
      
      @else
      <h2 id="registro-letras">No hay productos disponibles en esta tienda</h2>

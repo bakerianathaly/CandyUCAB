@@ -42,11 +42,7 @@
     ?>
       @foreach($productos as $producto)
       <tr>
-<<<<<<< HEAD
            {!! Form::open(array('action' => array('PresupuestosController@actualizar', $_SESSION['carritoid']))) !!}
-=======
-           {!! Form::open(array('action' => array('PresupuestoController@update', $_SESSION['carritoid']))) !!}
->>>>>>> Carrito
          {{csrf_field()}}
              <?php
        $i=$i+1;
@@ -58,12 +54,7 @@
          <td>
              <input name="cantidad[]" type="numeric" value="{{$producto->pre_cantidad}}">
          </td>
-<<<<<<< HEAD
          <td><a href="/Carrito/delete/{{$_SESSION['carritoid']}}/{{$producto->fkproducto}}" class="btn btn-warning">Eliminar</a><td>
-=======
-         <td><a href="{{{{action('PresupuestosController@delete',$_SESSION['carritoid'],$producto->fkproducto)}}}}" class="btn btn-warning">Eliminar</a><td>
-         <input name="_method" type="hidden" value="DELETE">
->>>>>>> Carrito
          <td>{!! Form::submit('Actualizar', ['class' => 'btn', 'style'=> 'background-color:#F79BEF;']) !!}<td>
       </tr>
       @endforeach

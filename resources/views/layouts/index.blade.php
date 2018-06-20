@@ -40,15 +40,10 @@
                 <li class="nav-item active">
                     <a class="nav-link colorletras" href="/promociones">Promociones</a>
                 </li>
-<<<<<<< HEAD
-                 @if($_SESSION['Middleware']==false)
-=======
                 @if( $_SESSION['Middleware']==false)
->>>>>>> Carrito
                  <li class="nav-item active">
                  <a class="nav-link colorletras" href="login">Carrito</a>
                  </li>
-<<<<<<< HEAD
                 @elseif($_SESSION['carritoid']=='')
                  <li class="nav-item active">
                  <a class="nav-link colorletras" href="Carrito/create/{{$_SESSION['id']}}">Carrito</a>
@@ -56,11 +51,6 @@
                  @else
                  <li class="nav-item active">
                  <a class="nav-link colorletras" href="/Carrito/{{$_SESSION['carritoid']}}">Carrito</a>
-=======
-                 @else
-                 <li class="nav-item active">
-                 <a class="nav-link colorletras" href="{{action('PresupuestosController@create',$_SESSION['id'])}}">Carrito</a>
->>>>>>> Carrito
                  </li>
                  @endif
                 <li class="nav-item active">
