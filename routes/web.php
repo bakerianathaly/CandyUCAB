@@ -16,6 +16,7 @@ Route::resource('registro','ClientsController');
 
 Route::post('registro/usuario','ClientsController@crearUsuario');
 
+
 Route::resource('Tiendas/admin','TiendasController');
  
 Route::get('Carrito/create/{id}','PresupuestosController@create');
@@ -40,7 +41,10 @@ Route::post('Carrito/actualizar/{id}','PresupuestosController@actualizar');
  
 Route::get('Tiendas/lista','TiendasController@tiendas');
  
-Route::get('Tiendas/lista/{id}','TiendasController@inventario');
+Route::get('Tiendas/lista/{id}','TiendasController@inventario'); 
+Route::resource('DiarioDulce','DiarioController');
+Route::resource('Tienda','TiendasController');
+
 
 Route::get('/', function () {
     return view('candy-inicio');
@@ -59,3 +63,4 @@ Route::post('login','ClientsController@login');
 //Route::post('login','Auth\LoginController@authenticate');
 Route::get('SesionFallida','ClientsController@SesionFallida');
 Route::get('iniciarSesion','ClientsController@abrirSesion');
+Route::get('ImportarExcel', 'ImportController@import');

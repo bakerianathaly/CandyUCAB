@@ -32,13 +32,16 @@
                     <a class="nav-link colorletras" href="/">Inicio <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
+                    <a class="nav-link colorletras" href="ImportarExcel">Importar<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
                     <a class="nav-link colorletras" href="/Producto">Producto</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link colorletras" href="/Tiendas/lista">Tiendas</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link colorletras" href="/promociones">Promociones</a>
+                    <a class="nav-link colorletras" href="/DiarioDulce">Diario dulce</a>
                 </li>
                 @if( $_SESSION['Middleware']==false)
                  <li class="nav-item active">
@@ -54,7 +57,13 @@
                  </li>
                  @endif
                 <li class="nav-item active">
-                    <a class="nav-link colorletras" href="/registro">Registro</a>
+                    @if ($_SESSION['Middleware'] == true)
+                        @if ($_SESSION['tipo']=='Empleado')
+                            <a class="nav-link colorletras" href="/registro">Registro</a>
+                        @endif
+                    @else
+                        <a class="nav-link colorletras" href="/registro/create">Registro</a>
+                    @endif
                 </li>
                 <li class="nav-item active ">
                   @if ($_SESSION['Middleware']==false)

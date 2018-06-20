@@ -55,12 +55,12 @@ return [
         ],
 
         'pgsql' => [
-          'read'=>['host'=>'127.0.0.1'],
-          'write'=>['host'=>'127.0.0.1'],
+            'read'=>['host'=>'127.0.0.1'],
+            'write'=>['host'=>'127.0.0.1'],
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'CandyUCAB'),
+            'database' => env('DB_DATABASE', 'candyUCAB'),
             'username' => env('DB_USERNAME', 'postgres'),
             'password' => env('DB_PASSWORD', 'postgres'),
             'charset' => 'utf8',
