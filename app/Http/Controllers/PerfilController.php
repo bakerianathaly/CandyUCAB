@@ -116,6 +116,17 @@ class PerfilController extends Controller
         [$nombre,$fvencimiento,$num_tarjeta,$tipo, $id[0]->fkcliente]);
         return redirect('/')->with('success','Metodo de pago agregado'); 
     }
+
+    public function mostratMP(){
+        @session_start();
+        if ($_SESSION['Middleware'] == true){
+            $cli_id=DB::select('select fkCliente from Usuario where Usu_id = :id',['id'=>$_SESSION['id']]); 
+            $tipo='N';
+            $cli_info=DB::select('select cli_nombre, cli_apellido, cli_ci, cli_correo, fktienda,cli_numcarnet, cli_id from Cliente where cli_tipo= ? and cli_id= ?',[$tipo, $cli_id[0]->fkcliente]);
+            $pago=DB::select('select met_id, met_nombre_titular,met_num_tarjeta, met_fvencimiento, met_tipo from Metodo_pago where fkcliente = :id',['id'=>$cli_id[0]->fkcliente]);
+            return view('listar-pagos', compact('cli_info','pago','cli_id'));
+        }
+    }
     /**
      * Display the specified resource.
      *
@@ -179,8 +190,8 @@ class PerfilController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id){
+        DB::delete('delete from Metodo_pago where met_id = :id', ['id'=>$id]);
+        return redirect('/')->with('sucess','Metodo de pago eliminado');
     }
 }

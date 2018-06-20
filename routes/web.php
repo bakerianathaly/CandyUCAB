@@ -20,6 +20,8 @@ Route::resource('perfil','PerfilController');
 
 Route::post('perfil/MP','PerfilController@clienteMP');
 
+Route::get('Perfil/pagosMP','PerfilController@mostratMP');
+
 Route::resource('Tiendas/admin','TiendasController');
  
 Route::get('Carrito/create/{id}','PresupuestosController@create');

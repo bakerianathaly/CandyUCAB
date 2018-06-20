@@ -88,10 +88,12 @@
             <label for="formGroup">Clave</label>
             <input class="form-control" type="password" name="clave" placeholder="Ingresar clave para el usuario*" value="$usuario->usu_contrasena">
           </div>
-          <div class="form-group">
-            <label for="formGroup">Persona de contacto</label>
-            <input class="form-control" type="text" name="contacto" placeholder="Ingrese el nombre de la persona de contacto" value="{{$contacto->con_nombre}}">
-          </div>
+          @if($cliente->cli_tipo == 'J')
+            <div class="form-group">
+              <label for="formGroup">Persona de contacto</label>
+              <input class="form-control" type="text" name="contacto" placeholder="Ingrese el nombre de la persona de contacto" value="{{$contacto->con_nombre}}">
+            </div>
+          @endif
         </div>
         <div class="col-lg-4 mr-auto">
           <div class="form-group">
