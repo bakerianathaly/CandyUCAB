@@ -32,7 +32,7 @@
                 <th>ID</th>
                 <th>Tipo</th>
                 <th>Ubicacion</th>
-                <th colspan="2">Action</th>
+                <th colspan="3">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -53,10 +53,13 @@
                         <button class="btn btn-danger" type="submit">Eliminar</button>
                     </form>
                 </td>
+                <td>
+                    <a href="/Pedidos/admin/tienda/{{$tienda->tie_id}}" class="btn btn-dark" style="color:white">Pedidos</a>
+                </td>
             </tr>
             @endforeach
         </tbody>
     </table>
-    <td><a href="{{action('TiendasController@create')}}" class="btn centrar_boton">Agregar Tienda</a></td>
+    <td><a href="{{action('TiendasController@create')}}" class="btn centrar_boton" style="color:black">Agregar Tienda</a></td>
 </div>
 {!! Form::close() !!} @endsection

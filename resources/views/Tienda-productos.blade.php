@@ -6,7 +6,7 @@
         <p>Alguno de nuestros productos</p>
     </div>
  
-    @if($productos[0])
+    @if($productos)
     <div id="card" class="card-group">
        @foreach ($productos as $producto)
         <div class="card">

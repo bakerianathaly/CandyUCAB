@@ -150,7 +150,8 @@ class TiendasController extends Controller
          $_SESSION['tiendaid']=$id;
          return view('Tienda-productos', compact('productos'));
         }else{
-         return view('Tienda-productos');
+         $productos = array();
+         return view('Tienda-productos', compact('productos'));
         }
     }
     /**
@@ -170,5 +171,11 @@ class TiendasController extends Controller
          }
  
         return view('Tiendas',compact('tiendas'));
+    }
+    public function listarpedidos($id)
+    {
+        @session_start();
+         $pedidos= DB::select('select * from pedido P,pedido_tienda T where  P.ped_id = T.fkpedido and T.fktienda = ?', [$id]);
+        return view('listar-pedidos',compact('pedidos'));
     }
 }

@@ -41,6 +41,8 @@ Route::post('Carrito/actualizar/{id}','PresupuestosController@actualizar');
 // Route::update('Carrito/{carritoid}','PresupuestosController@update');
  
 Route::get('Tiendas/lista','TiendasController@tiendas');
+
+Route::get('Pedidos/admin/tienda/{id}','TiendasController@listarPedidos');
  
 Route::get('Tiendas/lista/{id}','TiendasController@inventario'); 
 Route::resource('DiarioDulce','DiarioController');

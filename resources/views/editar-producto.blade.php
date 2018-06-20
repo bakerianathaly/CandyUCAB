@@ -34,7 +34,10 @@
                 <label for="formGroup">Textura</label>
                 <input class="form-control" type="text" name="textura" value="{{$producto->pro_textura}}">
             </div>
-
+            <div class="form-group">
+                <label for="formGroup">Precio</label>
+                <input class="form-control" type="numeric" name="precio" value="{{$producto->pro_precio}}">
+            </div>
         </div>
         <div class="col-lg-4 mr-auto">
             <div class="form-group">
