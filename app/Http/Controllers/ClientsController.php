@@ -198,13 +198,17 @@ class ClientsController extends Controller
         $usuario=$usuarios[0];
         $telefonos = DB::Select('select tel_numero from Telefono where fkCliente= :id', ['id'=>$id]);
         $telefono=$telefonos[0];
-        $contactos= DB::Select('select con_nombre from Contacto where fkCliente= :id', ['id'=>$id]);
-        $contacto=$contactos[0];
         $tiendas=DB::select('select t.*, lug_nombre from Tienda t, Lugar where tie_id = ? and Lug_id = t.fklugar', [$cliente->fktienda]);
         $tiendas=$tiendas[0];
         $tienda = DB::select(DB::raw("SELECT t.tie_tipo, t.tie_id,l.lug_nombre from tienda t, lugar l where t.fklugar = l.lug_id;"));
-        return view('editar-cliente', compact('cliente','id','usuario','telefono','contacto','tiendas','tienda'));
+        if ($cliente->cli_tipo == 'J'){
+            $contactos= DB::Select('select con_nombre from Contacto where fkCliente= :id', ['id'=>$id]);
+            $contacto=$contactos[0];
+            return view('editar-cliente', compact('cliente','id','usuario','telefono','contacto','tiendas','tienda'));
+        }
+        return view('editar-cliente', compact('cliente','id','usuario','telefono','tiendas','tienda'));
     }
+        
 
     /**
      * Update the specified resource in storage.
