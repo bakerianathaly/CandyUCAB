@@ -47,7 +47,8 @@ class ProductosController extends Controller
         'textura' => 'required|string|between:1,50',
         'puntuacion'=>'required|numeric|between:1,50',
         'sabor' =>'required|string|between:1,50',
-        'tipo' =>'required|string|between:1,50'
+        'tipo' =>'required|string|between:1,50',
+        'precio'=>'required|numeric|between:1,99999'
         ];
          $customMessages = [
           'nombre.required' => 'Debe introducir el nombre del producto',
@@ -55,15 +56,17 @@ class ProductosController extends Controller
               'puntuacion.required' => 'Debe introducir la puntuacion del producto',
               'sabor.required' => 'Debe introducir el sabor del producto',
               'tipo.required' => 'Debe introducir el tipo del producto',
+              'precio.required' => 'Debe introducir el precio del producto'
         ];
         $this->validate($request, $rules, $customMessages);
         $nombre = $request->input('nombre');
         $relleno = $request->input('relleno');
         $textura = $request->input('textura');
         $puntuacion = $request->input('puntuacion');
+        $precio = $request->input('precio');
         $sabor = $request->input('sabor');
         $tipo = $request->input('tipo');
-        DB::insert('Insert into public.Producto (Pro_nombre,Pro_relleno,Pro_textura,Pro_puntuacion,fksabor,fktipo) values (?,?,?,?,?,?)', [$nombre,$relleno,$textura,$puntuacion,$sabor,$tipo]);
+        DB::insert('Insert into public.Producto (Pro_nombre,Pro_relleno,Pro_textura,Pro_puntuacion,fksabor,fktipo,Pro_precio) values (?,?,?,?,?,?,?)', [$nombre,$relleno,$textura,$puntuacion,$sabor,$tipo,$precio]);
         Session::flash('message', 'Producto creado');
        return redirect()->action('ProductosController@index')->with('success','El producto fue agregado');
     }
@@ -112,7 +115,8 @@ class ProductosController extends Controller
         'textura' => 'required|string|between:1,50',
         'puntuacion'=>'required|numeric|between:1,50',
         'sabor' =>'required|string|between:1,50',
-        'tipo' =>'required|string|between:1,50'
+        'tipo' =>'required|string|between:1,50',
+        'precio'=>'required|numeric|between:1,99999'
         ];
          $customMessages = [
           'nombre.required' => 'Debe introducir el nombre del producto',
@@ -120,15 +124,17 @@ class ProductosController extends Controller
               'puntuacion.required' => 'Debe introducir la puntuacion del producto',
               'sabor.required' => 'Debe introducir el sabor del producto',
               'tipo.required' => 'Debe introducir el tipo del producto',
+              'precio.required' => 'Debe introducir el precio del producto'
         ];
         $this->validate($request, $rules, $customMessages);
         $nombre = $request->input('nombre');
         $relleno = $request->input('relleno');
         $textura = $request->input('textura');
         $puntuacion = $request->input('puntuacion');
+        $precio = $request->input('precio');
         $sabor = $request->input('sabor');
         $tipo = $request->input('tipo');
-        DB::update('update public.Producto set pro_nombre = ?, pro_relleno = ?, pro_textura = ?, pro_puntuacion = ?, fksabor = ?, fktipo = ? where pro_id = ?', [$nombre,$relleno,$textura,$puntuacion,$sabor,$tipo,$id]);
+        DB::update('update public.Producto set pro_nombre = ?, pro_relleno = ?, pro_textura = ?, pro_puntuacion = ?, fksabor = ?, fktipo = ?, pro_precio = ? where pro_id = ?', [$nombre,$relleno,$textura,$puntuacion,$sabor,$tipo,$precio,$id]);
         return redirect()->action('ProductosController@index')->with('success','El producto fue editado');
     }
     /**

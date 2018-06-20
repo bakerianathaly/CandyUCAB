@@ -32,7 +32,10 @@
                 <label for="formGroup">Textura</label>
                 <input class="form-control" type="text" name="textura" placeholder="Ingrese la textura">
             </div>
-
+             <div class="form-group">
+                <label for="formGroup">Precio</label>
+                <input class="form-control" type="numeric" name="precio" placeholder="Ingrese la precio">
+            </div>
         </div>
         <div class="col-lg-4 mr-auto">
             <div class="form-group">

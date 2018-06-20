@@ -33,6 +33,7 @@
         <th>Relleno</th>
         <th>Textura</th>
         <th>Descripcion</th>
+        <th>Precio</th>
         <th colspan="2">Action</th>
       </tr>
     </thead>
@@ -45,7 +46,7 @@
         <td>{{$producto->pro_relleno}}</td>
         <td>{{$producto->pro_textura}}</td>
         <td>{{$producto->pro_descripcion}}</td>
-
+        <td>{{$producto->pro_precio}}</td>
         <td><a  href="{{action('ProductosController@edit', $producto->pro_id)}}" class="btn btn-warning">Editar</a></td>
         <input name="_method" type="hidden" value="PATCH">
         <td>
@@ -59,7 +60,7 @@
       @endforeach
     </tbody>
   </table>
-       <td><a href="{{action('ProductosController@create')}}" class="btn centrar_boton">Agregar producto</a></td>
+       <td><a href="{{action('ProductosController@create')}}" class="btn centrar_boton" style="color:black">Agregar producto</a></td>
   </div>
     {!! Form::close() !!}
 @endsection
