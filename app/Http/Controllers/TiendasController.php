@@ -175,7 +175,15 @@ class TiendasController extends Controller
     public function listarpedidos($id)
     {
         @session_start();
-         $pedidos= DB::select('select * from pedido P,pedido_tienda T where  P.ped_id = T.fkpedido and T.fktienda = ?', [$id]);
-        return view('listar-pedidos',compact('pedidos'));
+        $pedidos= DB::select('select * from pedido P,pedido_tienda T where  P.ped_id = T.fkpedido and T.fktienda = ?', [$id]);
+        foreach($pedidos as $pedido){
+        $status = DB::select('select S.sta_nombre , S.sta_id,SP.sta_id as status_producto from pedido P,sta_ped SP,status S where P.ped_id = ? and P.ped_id = SP.fkpedido and S.sta_id = SP.fkstatus order by SP.sta_id DESC limit 1', [$pedido->ped_id]);
+        $pedido->sta_nombre = $status[0]->sta_nombre;
+        $pedido->sta_id = $status[0]->sta_id;
+        $pedido->status_producto_id = $status[0]->status_producto;  
+        }
+        $status= DB::select('select * from status');
+        $tiendaid=$id;
+        return view('listar-pedidos',compact('pedidos','status','tiendaid'));
     }
 }

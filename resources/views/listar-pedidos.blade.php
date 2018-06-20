@@ -34,6 +34,7 @@
                 <th>fecha</th>
                 <th>Cantidad de productos</th>
                 <th>Total</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -45,9 +46,23 @@
                 <th>{{$pedido->ped_fecha}}</th>
                 <td>{{$pedido->ped_cantidad}}</td>
                 <td>{{$pedido->ped_total}} Bs.S</td>
+                {!! Form::open(array('action' => array('PresupuestosController@actualizarStatus', $tiendaid ,$pedido->ped_id,$pedido->sta_id))) !!}
+                <td>
+                    <select name= "statusid" id="direccion" class="form-control" required>
+                    <option value="{{$pedido->sta_id}}">{{$pedido->sta_nombre}} </option>
+                    @foreach($status as $statu)
+                    @if($pedido->sta_id!=$statu->sta_id)
+                    <option value="{{$statu->sta_id}}">{{$statu->sta_nombre}}</option>
+                    @endif
+                    @endforeach
+                    </select>
+                    
+                </td>
+                <td>{!! Form::submit('Actualizar', ['class' => 'btn btn-warning']) !!}</td>
+                {!! Form::close() !!}
             </tr>
             @endforeach
         </tbody>
     </table>
 </div>
-{!! Form::close() !!} @endsection
+ @endsection
