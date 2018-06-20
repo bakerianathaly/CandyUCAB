@@ -27,7 +27,7 @@
     <table class="table table-striped">
     <thead>
       <tr>
-        <th>Imagen</th>
+        <th></th>
         <th>Producto</th>
         <th>Precio</th>
         <th>Precio en puntos</th>
@@ -37,28 +37,32 @@
       </tr>
      </thead>
      <tbody>
+          <?php
+       $i=0;
+    ?>
       @foreach($productos as $producto)
       <tr>
-           {!! Form::open(array('action' => array('PresupuestoController@update', Session::get($carritoid)))) !!}
+           {!! Form::open(array('action' => array('PresupuestosController@actualizar', $_SESSION['carritoid']))) !!}
          {{csrf_field()}}
-         <input name="_method" type="hidden" value="PATCH">
-         <td>{{$producto->pro_ruta_imagen}}</td>
+             <?php
+       $i=$i+1;
+    ?>
+         <td><img src="{{$producto->pro_ruta_imagen}}" width="100px" height="100px"  alt=""></td>
          <td>{{$producto->pro_nombre}}</td>
          <td>{{$producto->pre_precio}}</td>
          <td>??</td>
          <td>
-             <input name="cantidad" type="hidden" value="{{$producto->pre_cantidad}}">
-             <input name="pre_id" type="hidden" value="{{$producto->pre_id}}">
+             <input name="cantidad[]" type="numeric" value="{{$producto->pre_cantidad}}">
          </td>
-         <td><a href="{{{{action('PresupuestosController@delete',Session::get($carritoid),$producto->fkproducto)}}}}" class="btn btn-warning">Eliminar</a><td>
-         <input name="_method" type="hidden" value="DELETE">
+         <td><a href="/Carrito/delete/{{$_SESSION['carritoid']}}/{{$producto->fkproducto}}" class="btn btn-warning">Eliminar</a><td>
          <td>{!! Form::submit('Actualizar', ['class' => 'btn', 'style'=> 'background-color:#F79BEF;']) !!}<td>
       </tr>
       @endforeach
      </tbody>
     </table>
        {!! Form::close() !!}
-       <td><a href="/Tiendas/lista" class="btn centrar_boton">Seguir comprando</a></td>
+       <a href="/Tiendas/lista" class="btn centrar_boton" style="color:black">Seguir comprando</a></td>
+       <a href="/Carrito/pago/{{$_SESSION['id']}}" class="btn centrar_boton" style="color:black">Realizar compra</a></td>
   </div>
   
 @endsection

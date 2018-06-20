@@ -18,6 +18,7 @@ class TiendasController extends Controller
      */
     public function index()
     {
+         @session_start();
         $tiendas = DB::select('select * from public.Tienda');
         foreach ($tiendas as $tienda){
               
@@ -37,6 +38,7 @@ class TiendasController extends Controller
      */
     public function create()
     {
+        @session_start();
     //   $estados =  DB::select('select lug_id, lug_nombre,fklugar  from public.lugar where lug_id between  1601 and 1625');
     //   foreach ($estados as $estado){
     //       $estado->municipios = DB::select('select lug_id, lug_nombre,fklugar  from public.lugar where fklugar = ? ', [$estado->lug_id] );
@@ -58,6 +60,7 @@ class TiendasController extends Controller
      */
     public function store(Request $request)
     {
+        @session_start();
        $rules = [
         'tipo' => 'required|string|between:1,50',
         'fklugar' => 'required|numeric'
@@ -93,6 +96,7 @@ class TiendasController extends Controller
      */
     public function edit($id)
     {    
+        @session_start();
         $tiendas = DB::select('select * from public.tienda where tie_id = :id', ['id'=>$id]);
         $tienda=$tiendas[0];
         $lugares = DB::select('select * from public.lugar where lug_id = ? ', [$tienda->fklugar]);
@@ -110,19 +114,6 @@ class TiendasController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $rules = [
-        'tipo' => 'required|string|between:1,50',
-        'fklugar' => 'required|numeric'
-        ];
-         $customMessages = [
-          'tipo.required' => 'Debe introducir el tipo de tienda',
-              'fklugar.required' => 'Debe introducir la direccion de la tienda',
-        ];
-        $this->validate($request, $rules, $customMessages);
-        $tipo = $request->input('tipo');
-        $fklugar = $request->input('fklugar');
-        DB::update('update Tienda set tie_tipo = ?, fklugar = ? where tie_id = ?', [$tipo,$fklugar,$id]);
-        return redirect()->action('TiendasController@index')->with('success','La tienda fue editada');
     }
 
     /**
@@ -133,11 +124,11 @@ class TiendasController extends Controller
      */
     public function destroy($id)
     {
+        @session_start();
          DB::update('update Cliente set fktienda = 41 where fktienda = ?', [$id]);
          DB::delete('delete from public.Tienda where Tie_id = :id ', ['id'=>$id]);
         return redirect()->action('TiendasController@index')->with('success','La tienda fue eliminada exitosamente');
     }
-}
     /**
      * Remove the specified resource from storage.
      *
@@ -145,6 +136,7 @@ class TiendasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function inventario($id){    
+        @session_start();
          $inventarios = DB::select('select inv_id from inventario where fktienda = ?', [$id]);
          if($inventarios){
          $inventario = $inventarios[0];
@@ -155,8 +147,8 @@ class TiendasController extends Controller
              $prod= $pro[0];
              array_push($productos, $prod);
          }
-         Session::flash('producto',$productos);
-         return view('Tienda-productos');
+         $_SESSION['tiendaid']=$id;
+         return view('Tienda-productos', compact('productos'));
         }else{
          return view('Tienda-productos');
         }
@@ -169,6 +161,7 @@ class TiendasController extends Controller
      */
     public function tiendas()
     {
+        @session_start();
          $tiendas = DB::select('select * from tienda');
          foreach ($tiendas as $tienda){
              $lug= DB::select('select lug_nombre from lugar where lug_id = ?', [$tienda->fklugar]);

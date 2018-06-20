@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
+ 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,7 @@
     <link rel="stylesheet" href="/css/candy-style.css">
 </head>
 <body>
-  <?php
+     <?php
       @session_start();
       if($_SESSION == NULL)
       $_SESSION['Middleware']=false;
@@ -33,18 +34,22 @@
                     <a class="nav-link colorletras" href="/Producto">Producto</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link colorletras" href="/Tienda">Tiendas</a>
+                    <a class="nav-link colorletras" href="/Tiendas/lista">Tiendas</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link colorletras" href="/promociones">Promociones</a>
                 </li>
-                 @if($_SESSION['id']==NULL)
+                 @if($_SESSION['Middleware']==false)
                  <li class="nav-item active">
-                 <a class="nav-link colorletras" href="/login">Carrito</a>
+                 <a class="nav-link colorletras" href="login">Carrito</a>
                  </li>
-                @else
+                @elseif($_SESSION['carritoid']=='')
                  <li class="nav-item active">
-                 <a class="nav-link colorletras" href="{{action('Carrito/create')}}">Carrito</a>
+                 <a class="nav-link colorletras" href="Carrito/create/{{$_SESSION['id']}}">Carrito</a>
+                 </li>
+                 @else
+                 <li class="nav-item active">
+                 <a class="nav-link colorletras" href="/Carrito/{{$_SESSION['carritoid']}}">Carrito</a>
                  </li>
                 @endif
                 <li class="nav-item active">
@@ -54,7 +59,7 @@
                   @if ($_SESSION['Middleware']==false)
                     <a class="nav-link colorletras" href="/login">Iniciar sesion</a>
                   @else
-                    <a class="nav-link colorletras" href="logout">Cerrar sesion</a>
+                    <a class="nav-link colorletras" href="/logout">Cerrar sesion</a>
                  @endif
                 </li>
             </ul>
