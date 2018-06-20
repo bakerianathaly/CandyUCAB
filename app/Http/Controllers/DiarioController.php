@@ -19,12 +19,19 @@ class DiarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $descuentos=DB::select('select fkproducto, Des_cantidad, Des_new_precio from Descuento');
-        $diario=DB::select('select Dia_fvencimiento, Dia_femision from Diario order by Dia_fvencimiento desc');
-        $date=date(now());
-        $date=date("d-m-Y",strtotime($date));
-        $productos=DB::Select(DB::raw("SELECT pro_ruta_imagen, pro_descripcion, pro_id, pro_nombre from Producto"));
-        return view('candy-promociones',compact('descuentos','diario','date','productos'));
+            
+        $diario=DB::select(DB::RAW("SELECT Dia_fvencimiento, Dia_femision,Dia_id from Diario order by Dia_fvencimiento desc limit 1"));
+        if ($diario != null){
+            $descuentos=DB::select('select fkproducto, Des_cantidad, Des_new_precio, fkdiario from Descuento');
+            $productos=DB::Select(DB::raw("SELECT pro_ruta_imagen, pro_descripcion, pro_id, pro_nombre from Producto"));
+            return view('candy-promociones',compact('descuentos','productos','diario'));
+        }
+        else if ($diario== null){
+            return redirect('DiarioDulce/create')->with('error','Debe crear un diario primero');
+        }
+        else {
+            return redirect('/')->with('error','No hay diario disponibles en este momento');
+        }
     }
 
     /**
@@ -33,19 +40,6 @@ class DiarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){   
-        /* @session_start();
-        if ($_SESSION['Middleware'] == true){
-            if ($_SESSION['tipo']=='Empleado'){
-                $productos=DB::Select(DB::raw("SELECT pro_id, pro_nombre, pro_descripcion, pro_ruta_imagen from Producto"));
-                return view ('crear-promociones', compact('productos'));
-            }
-            else {
-                return view('candy-promociones');
-            }
-        }
-        else {
-            return view('candy-login');
-        } */
         $productos=DB::Select(DB::raw("SELECT pro_id, pro_nombre, pro_descripcion, pro_ruta_imagen from Producto"));
         return view ('crear-promociones', compact('productos'));
     }
@@ -115,9 +109,11 @@ class DiarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id){
+        $diario=DB::Select('select Dia_fvencimiento from Diario where Dia_id = :id',['id'=>$id]);
+        $productos=DB::Select(DB::raw("SELECT pro_ruta_imagen, pro_descripcion, pro_id, pro_nombre from Producto"));
+        $descuento=DB::select('select * from descuento');
+        return view('editar-diario', compact('diario','productos','descuento','id'));
     }
 
     /**
@@ -127,9 +123,18 @@ class DiarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id){
+        $rules = [
+            'ffinal'=> 'nullable|date',
+            'producto'=> 'nullable|array| between: 1,100000',
+            'descuento'=> 'nullable|array| between: 1,100000'
+        ];
+
+        $this->validate($request, $rules);
+        $ffinal=$request->input('ffinal');
+        $ffinal=date("d-m-Y",strtotime($ffinal));
+        $producto=$request->input('producto');
+        $descuento=$request->input('descuento');
     }
 
     /**
@@ -138,8 +143,9 @@ class DiarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id){
+        DB::delete('delete from descuento where fkDiario = :id', ['id'=>$id]);
+        DB::delete('delete from Diario where Dia_id = :id', ['id'=>$id]);
+        return redirect('/')->with('success','El cliente fue eliminado');
     }
 }

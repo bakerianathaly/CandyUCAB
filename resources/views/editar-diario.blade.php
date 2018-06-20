@@ -1,11 +1,11 @@
 @extends('layouts.index')
-@section('title', 'Creacion Diario Dulce')
+@section('title', 'Editar Diario Dulce')
 @section('content')
 
     <div id="login-centro" class="container-fluid m-auto">
         <div class="m-2">
             <div class=" ">
-                <h2 id="login-letras2">Crear Diario Dulce<img id="login-candy" src="/images/candyicon.ico" alt="candyicon"></h2>
+                <h2 id="login-letras2">Editar Diario Dulce<img id="login-candy" src="/images/candyicon.ico" alt="candyicon"></h2>
             </div>
         </div>
     </div>
@@ -22,11 +22,8 @@
 
     <div class="row container-fluid mt-5">
         <div class="col-6 m-auto">
-            {!! Form::open(['url' => 'DiarioDulce']) !!}
-            <div class="form-group col">
-                <label for="finicio">Seleccione la fecha de inicio del Diario</label>
-                <input type="date" class="form-control" name="finicio" id="finicio">
-            </div>
+            {!! Form::open(array('action' => array('DiarioController@update', $id))) !!}
+            {!! csrf_field() !!}
             <div class="form-group col">
                 <label for="ffinal">Fecha final del Diario</label>
                 <input type="date" class="form-control" name="ffinal" id="ffinal">
@@ -53,10 +50,7 @@
         </div>
         {!! Form::close() !!}
     </div>
-
-    <script src="https://momentjs.com/downloads/moment.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
+    
     <script>
         var add = 1;
         function producto_dinamico() {
@@ -72,16 +66,6 @@
         function remove_producto_dinamico(rid) {
             $('.removeclass'+rid).remove();
         }
-    </script>
-    <script>
-        $('#finicio').change(function() {
-            var finicio = $(this).val();
-            var time = moment(finicio, 'YYYY-MM-DD', true);
-            if (time.isValid()) {
-                var ffinal = time.add(20, 'd');
-                $('#ffinal').val(ffinal.format('YYYY-MM-DD'));
-            }
-        });
     </script>
 
 @endsection

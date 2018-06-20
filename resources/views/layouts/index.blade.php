@@ -36,7 +36,7 @@
                     <a class="nav-link colorletras" href="/Tienda">Tiendas</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link colorletras" href="/DiarioDulce">Promociones</a>
+                    <a class="nav-link colorletras" href="/DiarioDulce">Diario dulce</a>
                 </li>
                 <li class="nav-item active">
                     @if ($_SESSION['Middleware'] == true)
