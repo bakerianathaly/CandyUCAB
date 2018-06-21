@@ -21,7 +21,7 @@
              {!! Form::open(array('action' => array('PresupuestosController@compraOnline', $_SESSION['carritoid']))) !!}
              {{csrf_field()}}
              <label for="formGroup" style="margin-left:600px">Metodo de pago</label>  
-                <select name= "tipo" id="tipocandy" class="form-control" style="margin-left:600px" required>
+                <select name= "metodoid" id="tipocandy" class="form-control" style="margin-left:600px" required>
                     <option value="">Seleccione el metodo de pago</option>
                     @foreach($metodos as $metodo)
                     @if($metodo->met_tipo=='T')

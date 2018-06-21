@@ -158,10 +158,18 @@ class PresupuestosController extends Controller
               return redirect('/login');
           }
     }
-      public function compraOnline($carritoid)
+      public function compraOnline(Request $request,$carritoid)
     {   
           @session_start();
           if($_SESSION['Middleware']==true){
+          $rules = [
+           'metodoid' => 'required|numeric|between:1,5',
+           ];
+            $customMessages = [
+              'status.required' => 'Debe elegir una tienda',
+           ];
+          $this->validate($request, $rules, $customMessages);
+          $metodoid= $request->input('metodoid');
           $presupuesto= DB::select('select * from presupuesto where pre_id = ?', [$carritoid]);
           $productosPre = DB::select('select * from pre_pro where fkpresupuesto = ?', [$carritoid]);
           $precioTotal=0;
@@ -189,6 +197,7 @@ class PresupuestosController extends Controller
           DB::update('update inventario set inv_cantidad = inv_cantidad-?,inv_precio=inv_precio-? where fktienda = ?', [$cantidadTotal,$precioTotal,$_SESSION['tiendaid']]);
           DB::insert('insert into pedido_tienda (ped_descripcion, ped_fpedido,fktienda,fkpedido) values (?, ?,?,?)', [$pedido[0]->ped_descripcion, $pedido[0]->ped_fecha,$_SESSION['tiendaid'],$pedido[0]->ped_id]);
           DB::insert('insert into sta_ped (sta_finicial , fkpedido, fkstatus) values (?, ?,?)', [$fecha,$pedido[0]->ped_id,1]);
+          DB::insert('insert into venta_pago (ven_fpago, ven_montototal,fkpedido,fkmetodo_pago) values (?, ?,?,?)', [$fecha,$precioTotal,$pedido[0]->ped_id,$metodoid]);
           Session::flash('productos', $productos);
           Session::flash('pedido', $pedido);
           return redirect()->action('PresupuestosController@factura');
