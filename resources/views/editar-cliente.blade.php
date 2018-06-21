@@ -62,10 +62,10 @@
               @endforeach
             </select>
           </div>
-          <div class="form-group">
+          {{-- <div class="form-group">
             <label for="formGroup">Clave</label>
             <input class="form-control" type="password" name="clave" placeholder="Ingresar clave para el usuario*" value="$usuario->usu_contrasena">
-          </div>
+          </div> --}}
         </div>
       </div>
       <div class="trans text-center">
@@ -84,10 +84,10 @@
             <label for="formGroup">Correo</label>
             <input class="form-control" type="text" name="correo" placeholder="candyUCAB@candy.com" value="{{$cliente->cli_correo}}">
           </div>
-          <div class="form-group">
+          {{-- <div class="form-group">
             <label for="formGroup">Clave</label>
             <input class="form-control" type="password" name="clave" placeholder="Ingresar clave para el usuario*" value="$usuario->usu_contrasena">
-          </div>
+          </div> --}}
           @if($cliente->cli_tipo == 'J')
             <div class="form-group">
               <label for="formGroup">Persona de contacto</label>

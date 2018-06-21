@@ -194,8 +194,8 @@ class ClientsController extends Controller
     public function edit($id){
         $clientes = DB::select('select * from Cliente where cli_id = :id', ['id'=>$id]);
         $cliente=$clientes[0];
-        $usuarios= DB::Select('select usu_nombre,usu_contrasena from Usuario where fkCliente= ?' ,[$id]);
-        $usuario=$usuarios[0];
+        // $usuarios= DB::Select('select usu_nombre,usu_contrasena from Usuario where fkCliente= ?' ,[$id]);
+        // $usuario=$usuarios[0];
         $telefonos = DB::Select('select tel_numero from Telefono where fkCliente= :id', ['id'=>$id]);
         $telefono=$telefonos[0];
         $tiendas=DB::select('select t.*, lug_nombre from Tienda t, Lugar where tie_id = ? and Lug_id = t.fklugar', [$cliente->fktienda]);
@@ -206,7 +206,7 @@ class ClientsController extends Controller
             $contacto=$contactos[0];
             return view('editar-cliente', compact('cliente','id','usuario','telefono','contacto','tiendas','tienda'));
         }
-        return view('editar-cliente', compact('cliente','id','usuario','telefono','tiendas','tienda'));
+        return view('editar-cliente', compact('cliente','id','telefono','tiendas','tienda'));
     }
         
 

@@ -151,7 +151,7 @@ class PresupuestosController extends Controller
     {   
            @session_start();
           if($_SESSION['Middleware']==true){
-          $clienteid = DB::select('select fkcliente from usuario where fkcliente = ?', [$id]);
+          $clienteid = DB::select('select fkcliente from usuario where usu_id = ?', [$_SESSION['id']]);
           $metodos=DB::select('select met_id,met_tipo from metodo_pago where fkcliente = ?', [$clienteid[0]->fkcliente]);
           return view('metodo-pago',compact('metodos'));
           }else{
@@ -163,7 +163,7 @@ class PresupuestosController extends Controller
           @session_start();
           if($_SESSION['Middleware']==true){
           $rules = [
-           'metodoid' => 'required|numeric|between:1,5',
+           'metodoid' => 'required|numeric',
            ];
             $customMessages = [
               'status.required' => 'Debe elegir una tienda',

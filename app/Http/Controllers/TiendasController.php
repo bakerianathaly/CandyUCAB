@@ -114,6 +114,20 @@ class TiendasController extends Controller
      */
     public function update(Request $request, $id)
     {
+           $rules = [ 
+        'tipo' => 'required|string|between:1,50', 
+        'fklugar' => 'required|numeric' 
+        ]; 
+         $customMessages = [ 
+          'tipo.required' => 'Debe introducir el tipo de tienda', 
+              'fklugar.required' => 'Debe introducir la direccion de la tienda', 
+        ]; 
+        $this->validate($request, $rules, $customMessages); 
+        $tipo = $request->input('tipo'); 
+        $fklugar = $request->input('fklugar'); 
+        DB::update('update Tienda set tie_tipo = ?, fklugar = ? where tie_id = ?', [$tipo,$fklugar,$id]); 
+        return redirect()->action('TiendasController@index')->with('success','La tienda fue editada'); 
+
     }
 
     /**
