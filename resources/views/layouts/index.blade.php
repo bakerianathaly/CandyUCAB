@@ -67,7 +67,11 @@
                 </li>
                 <li class="nav-item active">
                     @if ($_SESSION['Middleware'] == true)
-                        <a class="nav-link colorletras" href="/perfil">Perfil</a>
+                        @if ($_SESSION['tipo'] == 'Cliente')
+                            <a class="nav-link colorletras" href="/perfil">Perfil</a>
+                        @else
+                            <a class="nav-link colorletras" href="/reporte">Reportes</a>
+                        @endif
                     @endif
                 </li>
                 <li class="nav-item active ">

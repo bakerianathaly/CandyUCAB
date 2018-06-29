@@ -10,6 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('reporte', 'ReportesController@inicio');
+Route::get('reporte/1', 'ReportesController@reporte1');
+Route::get('reporte/2', 'ReportesController@reporte2');
+
 Route::resource('Producto','ProductosController');
 
 Route::resource('registro','ClientsController');
@@ -63,10 +67,6 @@ Route::get('logout', 'ClientsController@logout');
 Route::get('login',function(){
     return view('candy-login');
 })->middleware('Autenticado');
-
-Route::get('/promociones',function(){
-    return view('candy-login');
-});
 
 Route::post('login','ClientsController@login');
 //Route::post('login','Auth\LoginController@authenticate');
