@@ -51,4 +51,38 @@ class ReportesController extends Controller
         
         return view('/reportes/reporte2', compact('asistencia'));
     }
+
+    public function reporte(){
+        $cli_top5 = NULL;
+        return view('/reportes/reporte5', compact('cli_top5'));
+    }
+
+    public function reporte5(Request $request){
+        $rules = [
+            'finicio'=> 'nullable|date'
+        ];
+        $this->validate($request, $rules);
+        $finicio=$request->input('finicio');
+        $cli_top5 = DB::select('select c.cli_nombre as nombre, c.cli_apellido as apellido, c.cli_rif as rif, vp.ven_montototal as monto_pagado, vp.ven_fpago as fecha
+        FROM cliente c, pedido p, venta_pago vp, usuario u
+        where (p.fkcliente = c.cli_id or (p.fkusuario = u.usu_id and u.fkcliente = c.cli_id)) and vp.fkpedido = p.ped_id and vp.ven_fpago = :finicio
+        group by c.cli_nombre, c.cli_apellido, c.cli_rif, vp.ven_montototal, p.ped_id,vp.ven_fpago
+        order by monto_pagado DESC, vp.ven_fpago ASC limit 5;',['finicio'=> $finicio]);
+
+        return view('/reportes/reporte5', compact('cli_top5'));
+    }
+
+    public function reporte7(){
+        $producto = DB::select('select count(ped.fkproducto) as venta, p.pro_nombre as nombre, sum(ped.ped_cantidad) as can, t.tie_tipo as tienda, l.lug_nombre as lugar, p.pro_ruta_imagen as imagen
+        FROM Ped_pro ped, producto p, pedido pe, venta_pago vp, tienda t, lugar l
+        where ped.fkproducto = p.pro_id and pe.ped_id = ped.fkpedido and ped.ped_id = vp.fkpedido and l.lug_id = t.fklugar and t.tie_id = ped.fktienda
+        group by p.pro_nombre, tienda, lugar, imagen
+        order by venta DESC, can DESC;');
+        
+        return view('/reportes/reporte7', compact('producto'));
+    }
+
+    public function reporte8(){
+
+    }
 }

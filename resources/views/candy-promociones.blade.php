@@ -1,9 +1,22 @@
 @extends('layouts.index')
 @section('title','Diario Dulce')
 @section('content')
+
+    <?php
+      @session_start();
+      if($_SESSION == NULL){
+        $_SESSION['Middleware']=false;
+        $_SESSION['carritoid']='';
+      }
+    ?>
+
     <div id="pro-letras" class="container-fluid">
         <p>Diario Dulce</p>
-        <p class="b">Validas hasta {{$diario[0]->dia_fvencimiento}}</p>
+        @if($diario[0]->dia_fvencimiento == NULL)
+            <p class="b">Actualmente no hay promociones</p>
+        @else 
+            <p class="b">Validas hasta {{$diario[0]->dia_fvencimiento}}</p>
+        @endif
     </div>
     
     <div id="carousel-ejemplo2" class="carousel slide m-0" data-ride="carousel">
@@ -83,7 +96,8 @@
             @endforeach
         @endforeach
     </div>
-        <div class="col-sm">
+        @if ($_SESSION['tipo'] == 'Empleado')
+            <div class="col-sm mx-auto text-center">
                 <form action="{{action('DiarioController@destroy', $diario[0]->dia_id)}}" method="post">
                     {{csrf_field()}}
                     <input name="_method" type="hidden" value="DELETE">
@@ -92,5 +106,6 @@
                 <a  href="{{action('DiarioController@edit', $diario[0]->dia_id)}}" class="btn btn-warning">Editar</a>
                 <input name="_method" type="hidden" value="PATCH">
                 <a href="{{action('DiarioController@create')}}" class="btn btn-primary">Crear nuevo diario</a>
-        </div>
+            </div>
+        @endif
 @endsection
