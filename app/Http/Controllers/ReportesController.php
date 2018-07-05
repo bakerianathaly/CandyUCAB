@@ -82,7 +82,23 @@ class ReportesController extends Controller
         return view('/reportes/reporte7', compact('producto'));
     }
 
-    public function reporte8(){
+    public function index8(){
+        $tiendas = DB::select(DB::raw("SELECT t.tie_tipo, t.tie_id,l.lug_nombre from tienda t, lugar l where t.fklugar = l.lug_id;"));
+        $producto = NULL;
+        return view('/reportes/reporte8', compact('tiendas', 'producto'));
+    }
 
+    public function reporte8(Request $request){
+        $rules = [
+            'tienda' =>'nullable|string|between:1,50',
+        ];
+        $this->validate($request, $rules);
+        $tienda = $request->input('tienda');
+        $tiendas = DB::select(DB::raw("SELECT t.tie_tipo, t.tie_id,l.lug_nombre from tienda t, lugar l where t.fklugar = l.lug_id;"));
+        $producto = DB::select('select p.pro_puntuacion as ranking, p.pro_nombre as nombre, t.tie_tipo as tienda, l.lug_nombre as lugar, p.pro_ruta_imagen as imagen
+        FROM producto p, ped_pro pe, tienda t, lugar l, pedido ped, venta_pago vp
+        where pe.fkproducto = p.pro_id and t.tie_id = ? and l.lug_id = t.fklugar and pe.fktienda = ? and ped.ped_id = vp.fkpedido and ped.ped_id = pe.fkpedido
+        order by ranking DESC;',[$tienda, $tienda]);
+        return view('/reportes/reporte8', compact('producto', 'tiendas'));
     }
 }

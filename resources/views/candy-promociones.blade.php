@@ -96,6 +96,7 @@
             @endforeach
         @endforeach
     </div>
+    @if($_SESSION['Middleware'] == true)
         @if ($_SESSION['tipo'] == 'Empleado')
             <div class="col-sm mx-auto text-center">
                 <form action="{{action('DiarioController@destroy', $diario[0]->dia_id)}}" method="post">
@@ -108,4 +109,5 @@
                 <a href="{{action('DiarioController@create')}}" class="btn btn-primary">Crear nuevo diario</a>
             </div>
         @endif
+    @endif 
 @endsection

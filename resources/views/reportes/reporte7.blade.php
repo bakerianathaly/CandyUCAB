@@ -17,7 +17,7 @@
                     <th>Cantidad vendida</th>
                     <th>Nombre</th>
                     <th>Tienda</th>
-                    <th>Imagen</th>
+                    <th>Caramelo</th>
                 </tr>
             </thead>
             <tbody>

@@ -16,7 +16,8 @@ Route::get('reporte/2', 'ReportesController@reporte2');
 Route::get('reporte/5', 'ReportesController@reporte');
 Route::post('reporte/5', 'ReportesController@reporte5');
 Route::get('reporte/7', 'ReportesController@reporte7');
-Route::get('reporte/8', 'ReportesController@reporte8');
+Route::get('reporte/8', 'ReportesController@index8');
+Route::post('reporte/8', 'ReportesController@reporte8');
 
 Route::resource('Producto','ProductosController');
 
