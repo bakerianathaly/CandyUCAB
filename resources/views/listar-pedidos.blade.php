@@ -19,7 +19,7 @@
     </ul>
 </div>
 @endif
-
+@if($pedidos)
 <div class="container">
     <br /> @if (\Session::has('success'))
     <div class="alert alert-success">
@@ -65,4 +65,7 @@
         </tbody>
     </table>
 </div>
+@else
+<h3 id="registro-letras">No hay pedidos disponibles</h2>
+@endif
  @endsection

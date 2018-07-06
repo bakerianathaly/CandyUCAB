@@ -332,6 +332,13 @@ class ClientsController extends Controller
       $_SESSION['tiendaid']='';
       Session::flush();
       return redirect('login');
-
+    }
+    public function listarUsuarios(){
+        @session_start();
+        $usuarios = DB::select('select u.usu_id , u.usu_nombre,r.rol_id,r.rol_tipo
+        from usuario u, rol r
+        where u.fkrol = r.rol_id');
+        $roles= DB::select('select * from rol');
+        return view('listar-usuarios',compact('usuarios','roles'));
     }
 }

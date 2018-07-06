@@ -182,7 +182,7 @@ class PresupuestosController extends Controller
           }
           $mytime = Carbon::now();
           $fecha =date("d-m-Y",strtotime($mytime->toDateTimeString()));
-          DB::insert('insert into pedido (ped_descripcion, ped_fecha, ped_cantidad,ped_total,fkusuario) values (?,?,?,?,?)', ['Pedido por tienda',$fecha,$cantidadTotal,$precioTotal,$_SESSION['id']]);
+          DB::insert('insert into pedido (ped_descripcion, ped_fecha, ped_cantidad,ped_total,fkusuario) values (?,?,?,?,?)', ['Compra Online',$fecha,$cantidadTotal,$precioTotal,$_SESSION['id']]);
           $pedido = DB::select('select * from pedido where fkusuario= ? order by ped_id Desc limit 1;', [$_SESSION['id']]);
           foreach($productosPre as $producto){
              DB::insert('insert into ped_pro (ped_precio, ped_cantidad,fktienda,fkproducto,fkpedido) values (?, ?,?,?,?)', [ $producto->precio, $producto->pre_cantidad,$_SESSION['tiendaid'],$producto->fkproducto,$pedido[0]->ped_id]);
@@ -200,11 +200,44 @@ class PresupuestosController extends Controller
           DB::insert('insert into venta_pago (ven_fpago, ven_montototal,fkpedido,fkmetodo_pago) values (?, ?,?,?)', [$fecha,$precioTotal,$pedido[0]->ped_id,$metodoid]);
           Session::flash('productos', $productos);
           Session::flash('pedido', $pedido);
+          $productos_tienda = DB::select('select pi.fkproducto
+          from inventario i,pro_inv pi
+          where i.inv_id = pi.fkinventario
+          and pi.pro_cantidad<=100
+          and i.fktienda = ?', [$_SESSION['tiendaid']]);
+          $inventario = DB::select('select inv_id from inventario where fktienda = ?',[$_SESSION['tiendaid']]);
+          if(array_key_exists(0, $productos_tienda)){
+            DB::insert('insert into pedido (ped_descripcion, ped_fecha, ped_cantidad,ped_total) values (?,?,?,?)', ['pedido de reposicion',$fecha,0,0]);
+            $pedido = DB::select('select * from pedido where fkusuario is null and fkcliente is null order by ped_id Desc limit 1;'); 
+            DB::insert('insert into sta_ped (sta_finicial , fkpedido, fkstatus) values (?, ?,?)', [$fecha,$pedido[0]->ped_id,1]); 
+            DB::insert('insert into pedido_tienda (ped_descripcion, ped_fpedido,fktienda,fkpedido) values (?, ?,?,?)', ['pedido de reposicion', $pedido[0]->ped_fecha,41,$pedido[0]->ped_id]);
+            foreach($productos_tienda as $producto){
+               $productox = DB::select('select pro_precio from producto where pro_id = ?', [$producto->fkproducto]);
+               DB::insert('insert into ped_pro (ped_precio, ped_cantidad,fktienda,fkproducto,fkpedido) values (?, ?,?,?,?)', [ $productox[0]->pro_precio,10000,41,$producto->fkproducto,$pedido[0]->ped_id]);
+               DB::update('update pro_inv set pro_cantidad = pro_cantidad+5000 where fkproducto = ? and fkinventario = ?', [$producto->fkproducto,$inventario[0]->inv_id]);
+               DB::update('update pedido set ped_cantidad = ped_cantidad+5000,ped_total = ped_total+? where ped_id = ?', [$productox[0]->pro_precio,$pedido[0]->ped_id]);
+            }
+            }
           return redirect()->action('PresupuestosController@factura');
 
           }else{
               return redirect('/login');
           }
+    }
+    public function compraTienda($id) {
+          @session_start();
+          $rules = [
+           'metodoid' => 'required|numeric',
+           ];
+            $customMessages = [
+              'status.required' => 'Debe elegir una tienda',
+           ];
+          $this->validate($request, $rules, $customMessages);
+          $mytime = Carbon::now();
+          $fecha =date("d-m-Y",strtotime($mytime->toDateTimeString()));
+          $cli_id = DB::select('select cli_id from Cliente where cli_ci = ?', [$id]);
+          DB::insert('insert into pedido (ped_descripcion, ped_fecha, ped_cantidad,ped_total,fkusuario) values (?,?,?,?,?)', ['Compra por tienda',$fecha,$cantidadTotal,$precioTotal,$cli_id]);
+          $pedido = DB::select('select * from pedido where fkcliente= ? order by ped_id Desc limit 1;', [$cli_id]);
     }
 
     public function factura()
@@ -249,8 +282,8 @@ class PresupuestosController extends Controller
              return redirect()->action('TiendasController@listarPedidos',$tiendaid);
             }else{
                 $mytime = Carbon::now();
-                $fecha =date("d-m-Y",strtotime($mytime->toDateTimeString()));
-                $statusactual = DB::select('select S.sta_id,SP.sta_id as status_producto from pedido P,sta_ped SP,status S where P.ped_id = ? and P.ped_id = SP.fkpedido and S.sta_id = SP.fkstatus order by SP.sta_id DESC limit 1', [$pedidoid]);
+                 $fecha =date("d-m-Y",strtotime($mytime->toDateTimeString()));
+                 $statusactual = DB::select('select S.sta_id,SP.sta_id as status_producto from pedido P,sta_ped SP,status S where P.ped_id = ? and P.ped_id = SP.fkpedido and S.sta_id = SP.fkstatus order by SP.sta_id DESC limit 1', [$pedidoid]);
                 DB::update('update sta_ped set sta_ffinal = ? where sta_id = ?', [$fecha,$statusactual[0]->status_producto]);
                 DB::insert('insert into sta_ped (sta_finicial , fkpedido, fkstatus) values (?, ?,?)', [$fecha,$pedidoid, $nuevoStatus]);
                 return redirect()->action('TiendasController@listarPedidos',$tiendaid);
