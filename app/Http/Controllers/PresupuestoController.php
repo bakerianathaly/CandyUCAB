@@ -182,7 +182,7 @@ class PresupuestosController extends Controller
           }
           $mytime = Carbon::now();
           $fecha =date("d-m-Y",strtotime($mytime->toDateTimeString()));
-          DB::insert('insert into pedido (ped_descripcion, ped_fecha, ped_cantidad,ped_total,fkusuario) values (?,?,?,?,?)', ['Pedido por tienda',$fecha,$cantidadTotal,$precioTotal,$_SESSION['id']]);
+          DB::insert('insert into pedido (ped_descripcion, ped_fecha, ped_cantidad,ped_total,fkusuario) values (?,?,?,?,?)', ['Compra Online',$fecha,$cantidadTotal,$precioTotal,$_SESSION['id']]);
           $pedido = DB::select('select * from pedido where fkusuario= ? order by ped_id Desc limit 1;', [$_SESSION['id']]);
           foreach($productosPre as $producto){
              DB::insert('insert into ped_pro (ped_precio, ped_cantidad,fktienda,fkproducto,fkpedido) values (?, ?,?,?,?)', [ $producto->precio, $producto->pre_cantidad,$_SESSION['tiendaid'],$producto->fkproducto,$pedido[0]->ped_id]);
@@ -205,6 +205,21 @@ class PresupuestosController extends Controller
           }else{
               return redirect('/login');
           }
+    }
+    public function compraTienda($id) {
+          @session_start();
+          $rules = [
+           'metodoid' => 'required|numeric',
+           ];
+            $customMessages = [
+              'status.required' => 'Debe elegir una tienda',
+           ];
+          $this->validate($request, $rules, $customMessages);
+          $mytime = Carbon::now();
+          $fecha =date("d-m-Y",strtotime($mytime->toDateTimeString()));
+          $cli_id = DB::select('select cli_id from Cliente where cli_ci = ?', [$id]);
+          DB::insert('insert into pedido (ped_descripcion, ped_fecha, ped_cantidad,ped_total,fkusuario) values (?,?,?,?,?)', ['Compra por tienda',$fecha,$cantidadTotal,$precioTotal,$cli_id]);
+          $pedido = DB::select('select * from pedido where fkcliente= ? order by ped_id Desc limit 1;', [$cli_id]);
     }
 
     public function factura()

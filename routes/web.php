@@ -58,6 +58,18 @@ Route::get('Tiendas/lista/{id}','TiendasController@inventario');
 Route::resource('DiarioDulce','DiarioController');
 Route::resource('Tienda','TiendasController');
 
+Route::get('Rol/admin','RolController@listarRoles');
+
+Route::get('admin/rol/privilegios/{id}','RolController@privilegiosRol');
+
+Route::get('Rol/admin/delete/{id}','RolController@eliminarRol');
+
+Route::get('Rol/admin/agregar','RolController@agregarRol');
+
+Route::post('Rol/admin/add','RolController@add');
+
+Route::post('Rol/admin/edit/{id}','RolController@edit');
+
 
 Route::get('/', function () {
     return view('candy-inicio');
