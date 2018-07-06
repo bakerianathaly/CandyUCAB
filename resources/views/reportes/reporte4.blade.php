@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="m-2">
             <div class=" ">
-                <h2 id="registro-letras">Top 10 clientes frecuentes por tienda ( mayor número de ventas ) por periodo de tiempo</h2>
+                <h2 id="registro-letras">Top 10 clientes frecuentes por tienda (mayor número de ventas) por periodo de tiempo</h2>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
                 <tbody>
                     <tr>
                         <th>
-                            <td>No hay respuesta para las fechas seleccionadas {{$finicio}} y {{$ffin}}</td>
+                            <td>No hay respuesta para las fechas seleccionadas</td>
                         </th>
                     </tr>
                 </tbody>

@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="m-2">
             <div class=" ">
-                <h2 id="registro-letras">Reporte de ingresos vs egresos de cada tienda</h2>
+                <h2 id="registro-letras">Reporte de asistencia indicando hora de entrada , hora salida, cédula del empleado, nombres y apellidos y departamento</h2>
             </div>
         </div>
     </div>

@@ -12,6 +12,7 @@
     <div class="form-group col">
         <label for="finicio">Seleccione la fecha </label> <br>
         <input type="date" name="finicio" id="finicio">
+        <input type="date" name="ffin" id="ffin">
         {!! Form::submit('Generar', ['class' => 'btn btn-primary mt-1']) !!}
     </div>
     {!! Form::close() !!}
@@ -38,6 +39,14 @@
                         <td>{{$e->fecha}}</td>
                     </tr>
                     @endforeach
+                </tbody>
+                @else
+                <tbody>
+                    <tr>
+                        <th>
+                            <td>No hay respuesta para las fechas seleccionadas</td>
+                        </th>
+                    </tr>
                 </tbody>
             @endif
         </table>

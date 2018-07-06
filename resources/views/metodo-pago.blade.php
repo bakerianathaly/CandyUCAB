@@ -20,8 +20,8 @@
     <div class="row">
              {!! Form::open(array('action' => array('PresupuestosController@compraOnline', $_SESSION['carritoid']))) !!}
              {{csrf_field()}}
-             <label for="formGroup" style="margin-left:600px">Metodo de pago</label>  
-                <select name= "metodoid" id="tipocandy" class="form-control" style="margin-left:600px" required>
+             <label for="formGroup" style="margin-left:400px">Metodo de pago</label>  
+                <select name= "metodoid" id="tipocandy" class="form-control mb-3" style="margin-left:400px" required>
                     <option value="">Seleccione el metodo de pago</option>
                     @foreach($metodos as $metodo)
                     @if($metodo->met_tipo=='T')
@@ -36,7 +36,7 @@
     </div>
 
     <div class="trans text-center">
-        {!! Form::submit('Realizar compra', ['class' => 'btn btn-default', 'style'=> 'background-color:#F79BEF; margin-left: 587px;']) !!}
+        {!! Form::submit('Realizar compra', ['class' => 'btn btn-secondary mx-auto text-center', 'style'=> 'color: white;']) !!}
     </div>
     {!! Form::close() !!}
 @endsection

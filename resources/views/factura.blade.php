@@ -48,7 +48,7 @@
      </tbody>
     </table>
        <p style="margin-left:700px">Cantidad de productos= {{$pedido[0]->ped_cantidad}} Total pagado = {{$pedido[0]->ped_total}} Bs.S</p>
-       <a href="/Pedido/exit" class="btn centrar_boton" style="color:black">Terminar</a></td>
+       <a href="/Pedido/exit" class="btn btn-secondary mx-auto text-center" style="color: white">Terminar</a></td>
   </div>
   
 @endsection

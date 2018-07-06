@@ -303,8 +303,18 @@ class ClientsController extends Controller
         $_SESSION['tipo']=$usuario[0]->usu_tipo;
         $_SESSION['token']=$usuario[0]->usu_remember_token;
         $_SESSION['carritoid']='';
-        return redirect()->action('ClientsController@abrirSesion')->with('success','Inició sesión exitosamente');
-        //return view('candy-inicio')->with('message','Inició sesión exitosamente');
+        if ($_SESSION['tipo'] == 'Empleado'){
+            $inventario = DB::select('select pro_cantidad as cantidad from pro_inv where pro_cantidad <= 100');
+            if($inventario[0]->cantidad <=100){
+                return redirect()->action('ClientsController@abrirSesion')->with('success','Debe reponer el inventario');
+            }
+            else{
+                return redirect()->action('ClientsController@abrirSesion')->with('success','Inició sesión exitosamente');
+            }
+        }
+        else{
+            return redirect()->action('ClientsController@abrirSesion')->with('success','Inició sesión exitosamente');
+        }
       }
       else{
         return redirect()->action('ClientsController@SesionFallida')->with('success','Nombre de usuario o contraseña incorrecta');
