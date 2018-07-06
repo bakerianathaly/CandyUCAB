@@ -13,11 +13,14 @@
 Route::get('reporte', 'ReportesController@inicio');
 Route::get('reporte/1', 'ReportesController@reporte1');
 Route::get('reporte/2', 'ReportesController@reporte2');
-Route::get('reporte/5', 'ReportesController@reporte');
+Route::get('reporte/5', 'ReportesController@index5');
 Route::post('reporte/5', 'ReportesController@reporte5');
 Route::get('reporte/7', 'ReportesController@reporte7');
 Route::get('reporte/8', 'ReportesController@index8');
 Route::post('reporte/8', 'ReportesController@reporte8');
+Route::get('reporte/9', 'ReportesController@reporte9');
+Route::get('reporte/10', 'ReportesController@reporte10');
+Route::get('reporte/13', 'ReportesController@reporte13');
 
 Route::resource('Producto','ProductosController');
 

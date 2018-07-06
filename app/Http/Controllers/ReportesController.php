@@ -26,7 +26,6 @@ class ReportesController extends Controller
         else{
             return view('candy-login');
         }
-        
     }
 
     public function reporte1(){
@@ -52,7 +51,7 @@ class ReportesController extends Controller
         return view('/reportes/reporte2', compact('asistencia'));
     }
 
-    public function reporte(){
+    public function index5(){
         $cli_top5 = NULL;
         return view('/reportes/reporte5', compact('cli_top5'));
     }
@@ -100,5 +99,44 @@ class ReportesController extends Controller
         where pe.fkproducto = p.pro_id and t.tie_id = ? and l.lug_id = t.fklugar and pe.fktienda = ? and ped.ped_id = vp.fkpedido and ped.ped_id = pe.fkpedido
         order by ranking DESC;',[$tienda, $tienda]);
         return view('/reportes/reporte8', compact('producto', 'tiendas'));
+    }
+
+    public function reporte9 (){
+        $ingrediente = DB::select('Select I.ing_nombre as nombre
+        From Ingrediente I
+        Where I.ing_id = (select I.fkIngrediente
+                    From ing_pro	 I
+                    group by I.fkIngrediente
+                    order by Count(I.fkproducto) DESC
+                    limit 1);');
+        return view('/reportes/reporte9', compact('ingrediente'));
+    }
+
+    public function reporte10(){
+        $cli_top10 = DB::select('Select c.client, Cl.cli_nombre as nombre, Cl.cli_apellido as apellido, Cl.cli_correo as correo, Cl.cli_rif as rif,SUM(c.total) as suma
+        from cliente cl,(Select P.fkCliente client, COUNT(P.ped_id) total
+            From Pedido P, cliente c
+            where c.cli_id = p.fkcliente
+            group by P.fkCliente
+            Union 
+            Select U.fkCliente client, COUNT(A.ped_id) total
+            From Usuario U, Pedido A
+            Where U.usu_id = A.fkUsuario 
+            group by U.fkCliente) as c
+        Where Cl.cli_id = c.client
+        group by client, Cl.cli_nombre, Cl.cli_correo, Cl.cli_rif,Cl.cli_apellido
+        order by SUM(c.total) DESC limit 10;');
+        return view('/reportes/reporte10', compact('cli_top10'));
+    }
+
+    public function reporte13(){
+        $tipo_pago = DB::select('select m.met_tipo as metodo_pago
+        from metodo_pago m
+        where m.met_id = (select met.met_id
+                    from metodo_pago met, pedido p, cliente c, venta_pago v
+                    where c.cli_id = p.fkcliente and p.ped_id = v.fkpedido and met.met_id = v.fkmetodo_pago
+                    group by met.met_tipo, met.met_id
+                    order by count(met.met_tipo) DESC limit 1);');
+        return view('/reportes/reporte13', compact('tipo_pago'));
     }
 }

@@ -62,12 +62,12 @@
                 <tr>
                     <td>9</td>
                     <td>Ingrediente más utilizado en los productos</td>
-                    <td><a  href="#" class="btn btn-primary">Generar</a></td>
+                    <td><a  href="reporte/9" class="btn btn-primary">Generar</a></td>
                 </tr>
                 <tr>
                     <td>10</td>
                     <td>Ranking de los 10 mejores clientes en base a la suma de compras en línea y las compras físicas</td>
-                    <td><a  href="#" class="btn btn-primary">Generar</a></td>
+                    <td><a  href="reporte/10" class="btn btn-primary">Generar</a></td>
                 </tr>
                 <tr>
                     <td>11</td>
@@ -82,7 +82,7 @@
                 <tr>
                     <td>13</td>
                     <td>Tipo de método de pago más utilizado en las tiendas físicas</td>
-                    <td><a  href="#" class="btn btn-primary">Generar</a></td>
+                    <td><a  href="reporte/13" class="btn btn-primary">Generar</a></td>
                 </tr>
                 <tr>
                     <td>14</td>
