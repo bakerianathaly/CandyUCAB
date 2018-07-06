@@ -13,6 +13,8 @@
 Route::get('reporte', 'ReportesController@inicio');
 Route::get('reporte/1', 'ReportesController@reporte1');
 Route::get('reporte/2', 'ReportesController@reporte2');
+Route::get('reporte/4', 'ReportesController@index4');
+Route::post('reporte/4', 'ReportesController@reporte4');
 Route::get('reporte/5', 'ReportesController@index5');
 Route::post('reporte/5', 'ReportesController@reporte5');
 Route::get('reporte/7', 'ReportesController@reporte7');

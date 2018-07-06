@@ -24,7 +24,7 @@ class ReportesController extends Controller
             }
         }
         else{
-            return view('candy-login');
+            return redirect('login')->with('fail','Debe iniciar sesion');
         }
     }
 
@@ -49,6 +49,31 @@ class ReportesController extends Controller
         where a.fkempleado = e.emp_id and e.fkdepartamento = d.dep_id and d.fktienda = t.tie_id and t.fklugar = l.lug_id;"));
         
         return view('/reportes/reporte2', compact('asistencia'));
+    }
+
+    public function index4(){
+        $cli_top10 = NULL;
+
+        return view('/reportes/reporte4', compact('cli_top10'));
+    }
+    
+    public function reporte4(Request $request){
+        $rules = [
+            'finicio'=> 'nullable|date',
+            'ffin'=> 'nullable|date'
+        ];
+        $this->validate($request, $rules);
+        $finicio=$request->input('finicio');
+        $ffin = $request->input('ffin');
+        $cli_top10 = DB::select('select c.cli_nombre as nombre, c.cli_apellido as apellido, c.cli_correo as correo, 
+        c.cli_rif as rif, p.ped_cantidad as cantidad, p.ped_fecha as fecha
+        FROM pedido p, cliente c, venta_pago vp
+        where p.ped_fecha between ? and ? and c.cli_id = p.fkcliente and p.ped_id = vp.fkpedido
+        order by p.ped_cantidad DESC, p.ped_fecha limit 10;', [$finicio, $ffin]);
+        
+        $ffin = date("d-m-Y", strtotime($ffin));
+        $finicio = date("d-m-Y", strtotime($finicio));  
+        return view('/reportes/reporte4', compact('cli_top10' , 'finicio', 'ffin'));
     }
 
     public function index5(){
