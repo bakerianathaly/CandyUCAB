@@ -20,6 +20,10 @@ Route::resource('registro','ClientsController');
 
 Route::post('registro/usuario','ClientsController@crearUsuario');
 
+Route::get('admin/usuarios','ClientsController@listarUsuarios');
+
+Route::post('admin/usuarios/{id}','RolController@asignarRol');
+
 Route::resource('perfil','PerfilController');
 
 Route::post('perfil/MP','PerfilController@clienteMP');

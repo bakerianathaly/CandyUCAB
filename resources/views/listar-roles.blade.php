@@ -50,5 +50,4 @@
   </table>
        <td><a href="{{action('RolController@agregarRol')}}" class="btn centrar_boton" style="color:black">Agregar Rol</a></td>
   </div>
-    {!! Form::close() !!}
 @endsection

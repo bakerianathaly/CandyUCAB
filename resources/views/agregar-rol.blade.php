@@ -24,6 +24,7 @@
             <input style="margin-left:735px" class="form-control" type="text" name="nombre" placeholder="Ingresar nombre" required>
             </div>
     </div>
+
     <div class="trans text-center">
         {!! Form::submit('Agregar', ['class' => 'btn btn-default', 'style'=> 'background-color:#F79BEF; margin-left: 587px;']) !!}
     </div>

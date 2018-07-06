@@ -64,4 +64,9 @@ class RolController extends Controller
      $id = DB::select('select rol_id from rol order by rol_id Desc limit 1');
      return redirect()->action('RolController@privilegiosRol',$id[0]->rol_id);
     }
+    public function asignarRol(Request $request,$id){
+      $fkrol= $request->input('fkrol');
+      DB::update('update usuario set fkrol = ? where usu_id = ?', [$fkrol,$id]);
+      return redirect()->action('ClientsController@listarUsuarios');
+    }
 }
