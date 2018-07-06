@@ -55,14 +55,14 @@
              <input name="cantidad[]" type="numeric" value="{{$producto->pre_cantidad}}">
          </td>
          <td><a href="/Carrito/delete/{{$_SESSION['carritoid']}}/{{$producto->fkproducto}}" class="btn btn-warning">Eliminar</a><td>
-         <td>{!! Form::submit('Actualizar', ['class' => 'btn', 'style'=> 'background-color:#F79BEF;']) !!}<td>
+         <td>{!! Form::submit('Actualizar', ['class' => 'btn mx-auto text-center', 'style'=> 'background-color:#F79BEF;']) !!}<td>
       </tr>
       @endforeach
      </tbody>
     </table>
        {!! Form::close() !!}
-       <a href="/Tiendas/lista" class="btn centrar_boton" style="color:black">Seguir comprando</a></td>
-       <a href="/Carrito/pago/{{$_SESSION['id']}}" class="btn centrar_boton" style="color:black">Realizar compra</a></td>
+       <a href="/Tiendas/lista" class="btn btn-secondary mx-auto text-center" style="color:white">Seguir comprando</a></td>
+       <a href="/Carrito/pago/{{$_SESSION['id']}}" class="btn btn-secondary mx-auto text-center" style="color:white">Realizar compra</a></td>
   </div>
   
 @endsection

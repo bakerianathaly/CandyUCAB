@@ -4,11 +4,11 @@
     <div class="container-fluid">
         <div class="m-2">
             <div class=" ">
-                <h2 id="registro-letras">Top 5 de clientes por monto</h2>
+                <h2 id="registro-letras">Top 10 clientes frecuentes por tienda (mayor número de ventas) por periodo de tiempo</h2>
             </div>
         </div>
     </div>
-    {!! Form::open(['action' => 'ReportesController@reporte5', 'method' => 'POST']) !!}
+    {!! Form::open(['action' => 'ReportesController@reporte4', 'method' => 'POST']) !!}
     <div class="form-group col">
         <label for="finicio">Seleccione la fecha </label> <br>
         <input type="date" name="finicio" id="finicio">
@@ -24,23 +24,25 @@
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>RIf</th>
-                    <th>Monto pagado</th>
-                    <th>Fecha de pago</th>
+                    <th>Correo</th>
+                    <th>Cantidad de compra</th>
+                    <th>Fecha</th>
                 </tr>
             </thead>
-            @if($cli_top5 != NULL)
+            @if($cli_top10 != NULL)
                 <tbody>
-                    @foreach($cli_top5 as $e)
+                    @foreach($cli_top10 as $e)
                     <tr>
                         <td>{{$e->nombre}}</td>
                         <td>{{$e->apellido}}</td>
                         <td>{{$e->rif}}</td>
-                        <td>{{$e->monto_pagado}}</td>
+                        <td>{{$e->correo}}</td>
+                        <td>{{$e->cantidad}}</td>
                         <td>{{$e->fecha}}</td>
                     </tr>
                     @endforeach
                 </tbody>
-                @else
+            @else
                 <tbody>
                     <tr>
                         <th>

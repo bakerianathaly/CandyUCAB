@@ -13,11 +13,22 @@
 Route::get('reporte', 'ReportesController@inicio');
 Route::get('reporte/1', 'ReportesController@reporte1');
 Route::get('reporte/2', 'ReportesController@reporte2');
-Route::get('reporte/5', 'ReportesController@reporte');
+Route::get('reporte/3', 'ReportesController@reporte3');
+Route::get('reporte/4', 'ReportesController@index4');
+Route::post('reporte/4', 'ReportesController@reporte4');
+Route::get('reporte/5', 'ReportesController@index5');
 Route::post('reporte/5', 'ReportesController@reporte5');
 Route::get('reporte/7', 'ReportesController@reporte7');
 Route::get('reporte/8', 'ReportesController@index8');
 Route::post('reporte/8', 'ReportesController@reporte8');
+Route::get('reporte/9', 'ReportesController@reporte9');
+Route::get('reporte/10', 'ReportesController@reporte10');
+Route::get('reporte/11', 'ReportesController@reporte11');
+Route::get('reporte/12', 'ReportesController@reporte12');
+Route::get('reporte/13', 'ReportesController@reporte13');
+Route::get('reporte/15', 'ReportesController@reporte15');
+Route::get('reporte/16', 'ReportesController@reporte16');
+Route::get('reporte/17', 'ReportesController@reporte17');
 
 Route::resource('Producto','ProductosController');
 
